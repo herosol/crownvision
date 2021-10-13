@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 export default class HomeScreen extends Component {
   render() {
@@ -29,7 +30,8 @@ export default class HomeScreen extends Component {
                 <div className="choose">
                   <strong>
                     {" "}
-                    <a href="design-ready.php">Have a design ready</a>
+                    {/* <a href="design-ready.php">Have a design ready</a> */}
+                    <Link to="/design/ready">Have a design ready?</Link>
                   </strong>
                   {/* <a href="design-ready.php"><strong>Have a design ready</strong></a> */}
                   <small>OR</small>

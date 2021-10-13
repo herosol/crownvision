@@ -2833,7 +2833,7 @@ footer .social > li > a:hover > img {
 |----------------------------------------------------------------------
 */
 
-[logon] {
+.common.logon {
   background: #f9fafb;
 }
 
@@ -2954,7 +2954,7 @@ footer .social > li > a:hover > img {
 |----------------------------------------------------------------------
 */
 
-[strip] .blk {
+.common.strip .blk {
   margin: 0;
   padding: 0;
   border-radius: 15px;
@@ -2962,7 +2962,7 @@ footer .social > li > a:hover > img {
   overflow: hidden;
 }
 
-[strip] .blk > .inside {
+.common.strip .blk > .inside {
   padding: 40px 100px;
 }
 
@@ -5414,7 +5414,7 @@ footer .social > li > a:hover > img {
   /* =================================================================
 	==================have a design ready=================
 	============================================ */
-  [strip] .blk > .inside {
+  .common.strip .blk > .inside {
     padding: 40px;
   }
   #for_you .uiForm .nav-tabs {
@@ -5828,7 +5828,7 @@ footer .social > li > a:hover > img {
   #strip > * {
     width: 100%;
   }
-  [strip] .blk > .inside {
+  .common.strip .blk > .inside {
     padding: 15px;
   }
   #for_you .uiForm .nav-tabs > li {

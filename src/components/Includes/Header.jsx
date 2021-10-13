@@ -29,7 +29,7 @@ class Header extends Component {
                 <Link to="/contact-us">Contact us</Link>
               </li>
               <li className="btnLi">
-                <a href="login.php">Login</a>
+                <Link to="auth/enter">Login</Link>
               </li>
             </ul>
           </nav>

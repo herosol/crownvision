@@ -9,6 +9,10 @@ import LocationsScreen from "./Screens/Front/LocationsScreen/LocationsScreen";
 import GalleryScreen from "./Screens/Front/GalleryScreen/GalleryScreen";
 import BlogScreen from "./Screens/Front/BlogScreen/BlogScreen";
 import ContactUsScreen from "./Screens/Front/ContactUsScreen/ContactUsScreen";
+import LoginScreen from "./Screens/Auth/LoginScreen";
+import RegisterScreen from "./Screens/Auth/RegisterScreen";
+import BlogDetailScreen from "./Screens/Front/BlogScreen/BlogDetailScreen";
+import ReadyDesign from "./Screens/Front/AdDesign/ReadyDesign";
 
 function App() {
   render();
@@ -17,36 +21,15 @@ function App() {
       <Router>
         <Header />
         <Switch>
-          <Route
-            exact
-            path="/"
-            component={HomeScreen}
-            activeClassName="active"
-          />
-          <Route
-            exact
-            path="/locations"
-            component={LocationsScreen}
-            activeClassName="active"
-          />
-          <Route
-            exact
-            path="/gallery"
-            component={GalleryScreen}
-            activeClassName="active"
-          />
-          <Route
-            exact
-            path="/blog"
-            component={BlogScreen}
-            activeClassName="active"
-          />
-          <Route
-            exact
-            path="/contact-us"
-            component={ContactUsScreen}
-            activeClassName="active"
-          />
+          <Route exact path="/" component={HomeScreen} />
+          <Route exact path="/locations" component={LocationsScreen} />
+          <Route exact path="/gallery" component={GalleryScreen} />
+          <Route exact path="/blog" component={BlogScreen} />
+          <Route exact path="/blog-detail" component={BlogDetailScreen} />
+          <Route exact path="/contact-us" component={ContactUsScreen} />
+          <Route exact path="/design/ready" component={ReadyDesign} />
+          <Route exact path="/auth/enter" component={LoginScreen} />
+          <Route exact path="/auth/register" component={RegisterScreen} />
         </Switch>
         <Footer />
       </Router>

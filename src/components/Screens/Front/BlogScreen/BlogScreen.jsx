@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import LocationScreenSkeleton from "../../../../skeletons/LocationsScreenSkeleton";
 
-export default class LocationsScreen extends Component {
+export default class BlogScreen extends Component {
   constructor(props) {
     super(props);
     this.state = { loading: true };
