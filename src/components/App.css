@@ -4183,19 +4183,19 @@ footer .social > li > a:hover > img {
 .clientsReviews .heading {
   margin-bottom: 40px;
 }
-#owl-folioClient .inner {
+.owl-folioClient .inner {
   background: #fff;
   padding: 20px;
   border-radius: 7px;
   margin-bottom: 10px;
   border: 1px solid #ededed;
 }
-#owl-folioClient .inner > .icoBlk {
+.owl-folioClient .inner > .icoBlk {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
 }
-#owl-folioClient .inner .ico {
+.owl-folioClient .inner .ico {
   width: 75px;
   min-width: 75px;
   height: 75px;
@@ -4206,11 +4206,11 @@ footer .social > li > a:hover > img {
   font-family: "Segoe Regular";
   margin-bottom: 2px;
 }
-#owl-folioClient .inner .txtMain {
+.owl-folioClient .inner .txtMain {
   flex: 1;
   margin-right: 20px;
 }
-#owl-folioClient .inner p {
+.owl-folioClient .inner p {
   font-size: 16px;
   color: #aaaaaa;
 }
@@ -5811,10 +5811,10 @@ footer .social > li > a:hover > img {
   .gallery .col {
     width: 100%;
   }
-  #owl-folioClient .inner .ico {
+  .owl-folioClient .inner .ico {
     margin-right: 10px;
   }
-  #owl-folioClient .inner p {
+  .owl-folioClient .inner p {
     margin-top: -4px;
   }
   /* =========have already design========= */
@@ -5974,7 +5974,7 @@ footer .social > li > a:hover > img {
   footer .smLst > li {
     padding: 5px 4px;
   }
-  #owl-folioClient .inner p {
+  .owl-folioClient .inner p {
     margin-top: 0px;
   }
 }
