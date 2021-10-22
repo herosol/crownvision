@@ -171,6 +171,168 @@ export default class LocationsScreen extends Component {
                   </p>
                 </div>
               </div>
+              <div className="col">
+                <a
+                  href="blog-detail.php"
+                  className="image"
+                  style={{ display: "block" }}
+                >
+                  <LazyImage />
+                  {/* <img
+                    src={
+                      require("../../../../assets/images/blog/8.png").default
+                    }
+                  /> */}
+                </a>
+                <div className="cntnt">
+                  <p className="smInfo">
+                    <span>Tesco</span>
+                    <span>02 Jun 2019</span>
+                  </p>
+                  <h3>
+                    <a href="blog-detail.php">French Frey Heaven</a>
+                  </h3>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                    eiusmod tempor incididunt.
+                  </p>
+                </div>
+              </div>
+              <div className="col">
+                <a
+                  href="blog-detail.php"
+                  className="image"
+                  style={{ display: "block" }}
+                >
+                  <LazyImage />
+                  {/* <img
+                    src={
+                      require("../../../../assets/images/blog/8.png").default
+                    }
+                  /> */}
+                </a>
+                <div className="cntnt">
+                  <p className="smInfo">
+                    <span>Tesco</span>
+                    <span>02 Jun 2019</span>
+                  </p>
+                  <h3>
+                    <a href="blog-detail.php">French Frey Heaven</a>
+                  </h3>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                    eiusmod tempor incididunt.
+                  </p>
+                </div>
+              </div>
+              <div className="col">
+                <a
+                  href="blog-detail.php"
+                  className="image"
+                  style={{ display: "block" }}
+                >
+                  <LazyImage />
+                  {/* <img
+                    src={
+                      require("../../../../assets/images/blog/8.png").default
+                    }
+                  /> */}
+                </a>
+                <div className="cntnt">
+                  <p className="smInfo">
+                    <span>Tesco</span>
+                    <span>02 Jun 2019</span>
+                  </p>
+                  <h3>
+                    <a href="blog-detail.php">French Frey Heaven</a>
+                  </h3>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                    eiusmod tempor incididunt.
+                  </p>
+                </div>
+              </div>
+              <div className="col">
+                <a
+                  href="blog-detail.php"
+                  className="image"
+                  style={{ display: "block" }}
+                >
+                  <LazyImage />
+                  {/* <img
+                    src={
+                      require("../../../../assets/images/blog/8.png").default
+                    }
+                  /> */}
+                </a>
+                <div className="cntnt">
+                  <p className="smInfo">
+                    <span>Tesco</span>
+                    <span>02 Jun 2019</span>
+                  </p>
+                  <h3>
+                    <a href="blog-detail.php">French Frey Heaven</a>
+                  </h3>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                    eiusmod tempor incididunt.
+                  </p>
+                </div>
+              </div>
+              <div className="col">
+                <a
+                  href="blog-detail.php"
+                  className="image"
+                  style={{ display: "block" }}
+                >
+                  <LazyImage />
+                  {/* <img
+                    src={
+                      require("../../../../assets/images/blog/8.png").default
+                    }
+                  /> */}
+                </a>
+                <div className="cntnt">
+                  <p className="smInfo">
+                    <span>Tesco</span>
+                    <span>02 Jun 2019</span>
+                  </p>
+                  <h3>
+                    <a href="blog-detail.php">French Frey Heaven</a>
+                  </h3>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                    eiusmod tempor incididunt.
+                  </p>
+                </div>
+              </div>
+              <div className="col">
+                <a
+                  href="blog-detail.php"
+                  className="image"
+                  style={{ display: "block" }}
+                >
+                  <LazyImage />
+                  {/* <img
+                    src={
+                      require("../../../../assets/images/blog/8.png").default
+                    }
+                  /> */}
+                </a>
+                <div className="cntnt">
+                  <p className="smInfo">
+                    <span>Tesco</span>
+                    <span>02 Jun 2019</span>
+                  </p>
+                  <h3>
+                    <a href="blog-detail.php">French Frey Heaven</a>
+                  </h3>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                    eiusmod tempor incididunt.
+                  </p>
+                </div>
+              </div>
             </div>
             <div className="clientsReviews">
               <h2 className="heading text-center">Happy Clients Reviews</h2>

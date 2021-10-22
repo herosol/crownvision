@@ -9,7 +9,7 @@ export class HappyClientsSlider extends Component {
         <div class="container-fluid">
           <OwlCarousel
             dots={true}
-            nav={true}
+            // nav={true}
             loop={true}
             items={3}
             center={true}
@@ -18,10 +18,10 @@ export class HappyClientsSlider extends Component {
             smartSpeed={1000}
             autoplayTimeout={8000}
             autoplayHoverPause={true}
-            navText={[
-              '<i class="fi-chevron-left"></i>',
-              '<i class="fi-chevron-right"></i>',
-            ]}
+            // navText={[
+            //   '<i class="fi-chevron-left"></i>',
+            //   '<i class="fi-chevron-right"></i>',
+            // ]}
             responsive={{
               0: {
                 items: 1,

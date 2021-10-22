@@ -206,14 +206,12 @@ export default class LocationsScreen extends Component {
             </div>
           </div>
         </section>
-        {/* locations */}
         <section id="similar">
           <div className="contain">
             <h4 className="bold">And many other cities</h4>
             <OtherCitiesSlider />
           </div>
         </section>
-        {/* similar */}
       </main>
     ) : (
       <main common locations>

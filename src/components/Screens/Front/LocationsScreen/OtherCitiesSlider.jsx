@@ -10,7 +10,7 @@ export class OtherCitiesSlider extends Component {
           <OwlCarousel
             loop={true}
             margin={20}
-            nav={true}
+            // nav={true}
             className="owl-theme owl-carousel owl-loaded owl-drag"
             smartSpeed={1000}
             autoplayTimeout={8000}
