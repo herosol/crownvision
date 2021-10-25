@@ -1,17 +1,58 @@
 import React, { Component } from "react";
 import LocationScreenSkeleton from "../../../../skeletons/LocationsScreenSkeleton";
+import Button from "../../../Common/Button";
 
-export default class ReadyDesign extends Component {
+export default class BookSlot extends Component {
   constructor(props) {
     super(props);
-    this.state = { loading: true };
+    this.state = {
+      loading: true,
+      formStep: 1,
+      formData: {
+        location: null,
+        startDate: null,
+        endDate: null,
+        times: null,
+      },
+    };
   }
 
   componentDidMount() {
     setTimeout(() => {
-      this.setState({ loading: false });
-    }, 1000);
+      this.setState(({ loading }) => ({
+        loading: false,
+      }));
+    }, 700);
   }
+
+  handleSwitchTab = (actionType, index = null) => {
+    this.setState(({ formStep }) => ({
+      formStep:
+        index !== null
+          ? index
+          : actionType == "next"
+          ? formStep + 1
+          : formStep - 1,
+    }));
+  };
+
+  handleInputChange = (event) => {
+    const { name, value } = event.target;
+    this.setState(({ formData }) => ({
+      formData: {
+        ...formData,
+        [name]: value,
+      },
+    }));
+  };
+
+  handleFormSubmit = (event) => {
+    event.preventDefault();
+    console.log(this.state.formData);
+    console.log(
+      process.env.REACT_APP_API_URL + process.env.REACT_APP_REGISTER_URL
+    );
+  };
 
   render() {
     return this.state.loading === false ? (
@@ -43,14 +84,15 @@ export default class ReadyDesign extends Component {
                 </div>
               </div>
               <div className="inside">
-                <form
-                  action="request-to-book.php"
-                  method="post"
-                  className="uiForm"
-                >
+                <form onSubmit={this.handleFormSubmit} className="uiForm">
                   <ul className="nav nav-tabs relative">
-                    <li className="active">
-                      <a data-toggle="tab" href="#selectCity">
+                    <li
+                      className={`${this.state.formStep == 1 ? "active" : ""}`}
+                    >
+                      <a
+                        data-toggle="tab"
+                        onClick={() => this.handleSwitchTab("next", 1)}
+                      >
                         <span className="ico">
                           <img
                             src={
@@ -65,8 +107,13 @@ export default class ReadyDesign extends Component {
                         </strong>
                       </a>
                     </li>
-                    <li>
-                      <a data-toggle="tab" href="#selectDateTime">
+                    <li
+                      className={`${this.state.formStep == 2 ? "active" : ""}`}
+                    >
+                      <a
+                        data-toggle="tab"
+                        onClick={() => this.handleSwitchTab("next", 2)}
+                      >
                         <span className="ico">
                           <img
                             src={
@@ -82,8 +129,13 @@ export default class ReadyDesign extends Component {
                         </strong>
                       </a>
                     </li>
-                    <li>
-                      <a data-toggle="tab" href="#Design-Reference">
+                    <li
+                      className={`${this.state.formStep == 3 ? "active" : ""}`}
+                    >
+                      <a
+                        data-toggle="tab"
+                        onClick={() => this.handleSwitchTab("next", 3)}
+                      >
                         <span className="ico">
                           <img
                             src={
@@ -100,7 +152,12 @@ export default class ReadyDesign extends Component {
                     </li>
                   </ul>
                   <div className="tab-content">
-                    <div id="selectCity" className="tab-pane fade active in">
+                    <div
+                      id="selectCity"
+                      className={`tab-pane fade ${
+                        this.state.formStep == 1 ? "active in" : ""
+                      }`}
+                    >
                       <div className="step small">Step 1/3</div>
                       <h3>Where You Want To Advertise?</h3>
                       <p>Find the best place to show your vision</p>
@@ -169,29 +226,52 @@ export default class ReadyDesign extends Component {
                         </div>
                       </div>
                       <div className="bTn formBtn text-right">
-                        <button
+                        <Button
                           type="button"
-                          className="webBtn yellowBtn roundBtn"
-                        >
-                          Next
-                        </button>
+                          variant="primary"
+                          className="roundBtn"
+                          onClick={() => this.handleSwitchTab("next")}
+                          text="Next"
+                        />
                       </div>
                     </div>
-                    <div id="selectDateTime" className="tab-pane fade">
+                    <div
+                      id="selectDateTime"
+                      className={`tab-pane fade ${
+                        this.state.formStep == 2 ? "active in" : ""
+                      }`}
+                    >
                       <div className="step small">Step 2/3</div>
                       <h3>Select Date &amp; Time</h3>
                       <p>Let world see your ad in right time</p>
                       <hr />
                       <div className="formRow row">
-                        <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-xx-12">
+                        <div className="col-lg-3 col-md-3 col-sm-3 col-xs-3 col-xx-6">
                           <div className="txtGrp oldLable">
-                            <p>Start &amp; End Dates</p>
+                            <p>Start Date</p>
                             <div className="relative">
                               <div className="calendar-inputWrap">
                                 <input
                                   type="text"
-                                  name
-                                  id
+                                  name="startDate"
+                                  className="txtBox date_picker calendar-input"
+                                  onChange={this.handleInputChange}
+                                />
+                                <i className="calendar-icon" />
+                              </div>
+                              <i className="fa fa-calendar" />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-lg-3 col-md-3 col-sm-3 col-xs-3 col-xx-6">
+                          <div className="txtGrp oldLable">
+                            <p>End Date</p>
+                            <div className="relative">
+                              <div className="calendar-inputWrap">
+                                <input
+                                  type="text"
+                                  name="endDate"
+                                  onChange={this.handleInputChange}
                                   className="txtBox date_picker calendar-input"
                                 />
                                 <i className="calendar-icon" />
@@ -383,15 +463,28 @@ export default class ReadyDesign extends Component {
                         </div>
                       </div>
                       <div className="bTn formBtn text-right">
-                        <button
+                        <Button
                           type="button"
-                          className="webBtn yellowBtn roundBtn"
-                        >
-                          Next
-                        </button>
+                          variant="primary"
+                          className="roundBtn"
+                          onClick={() => this.handleSwitchTab("previous")}
+                          text="Previous"
+                        />
+                        <Button
+                          type="button"
+                          variant="primary"
+                          className="roundBtn"
+                          onClick={() => this.handleSwitchTab("next")}
+                          text="Next"
+                        />
                       </div>
                     </div>
-                    <div id="Design-Reference" className="tab-pane fade">
+                    <div
+                      id="Design-Reference"
+                      className={`tab-pane fade ${
+                        this.state.formStep == 3 ? "active in" : ""
+                      }`}
+                    >
                       <div className="step small">Step 3/3</div>
                       <h3>Attach Your Design</h3>
                       <p>
@@ -408,7 +501,13 @@ export default class ReadyDesign extends Component {
                               className="txtBox uploadImg fileUpload"
                               data-upload="design"
                             >
-                              <img src="images/big-file.svg" alt="" />
+                              <img
+                                src={
+                                  require("../../../../assets/images/big-file.svg")
+                                    .default
+                                }
+                                alt=""
+                              />
                               <p>
                                 <span>Drag and drop files here</span>
                                 <span className="color">Or Browse Files</span>
@@ -439,12 +538,19 @@ export default class ReadyDesign extends Component {
                         </div>
                       </div>
                       <div className="bTn formBtn text-right">
-                        <button
+                        <Button
+                          type="button"
+                          variant="primary"
+                          className="roundBtn"
+                          onClick={() => this.handleSwitchTab("previous")}
+                          text="Previous"
+                        />
+                        <Button
                           type="submit"
-                          className="webBtn yellowBtn roundBtn"
-                        >
-                          Book Slot
-                        </button>
+                          variant="primary"
+                          className="roundBtn"
+                          text="Book Slot"
+                        />
                       </div>
                     </div>
                   </div>

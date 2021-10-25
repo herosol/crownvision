@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { register } from "../../../states/actions/authActions";
 
 export default class RegisterScreen extends Component {
   constructor(props) {
@@ -36,7 +35,7 @@ export default class RegisterScreen extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log(this.state);
+    console.log(this.state.formData);
     // EMIT REGISTER ACTION
   };
 

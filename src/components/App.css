@@ -3139,6 +3139,10 @@ footer .social > li > a:hover > img {
   border-color: #0a2130;
 }
 
+#for_you .uiForm .nav-tabs > li > a {
+  cursor: pointer;
+}
+
 #for_you .uiForm .nav-tabs > li.active > a {
   color: #0a2130;
 }

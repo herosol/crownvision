@@ -12,7 +12,7 @@ import ContactUsScreen from "./Screens/Front/ContactUsScreen/ContactUsScreen";
 import LoginScreen from "./Screens/Auth/LoginScreen";
 import RegisterScreen from "./Screens/Auth/RegisterScreen";
 import BlogDetailScreen from "./Screens/Front/BlogScreen/BlogDetailScreen";
-import ReadyDesign from "./Screens/Front/AdDesign/ReadyDesign";
+import BookSlot from "./Screens/Front/Booking/BookSlot";
 
 function App() {
   render();
@@ -27,7 +27,7 @@ function App() {
           <Route exact path="/blog" component={BlogScreen} />
           <Route exact path="/blog-detail" component={BlogDetailScreen} />
           <Route exact path="/contact-us" component={ContactUsScreen} />
-          <Route exact path="/design/ready" component={ReadyDesign} />
+          <Route exact path="/design/ready" component={BookSlot} />
           <Route exact path="/auth/enter" component={LoginScreen} />
           <Route exact path="/auth/register" component={RegisterScreen} />
         </Switch>
