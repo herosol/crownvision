@@ -159,26 +159,26 @@ export default class LocationsScreen extends Component {
                 </div>
               </div>
               <div className="col col2">
-                <form action method="post">
+                <form method="post">
                   <div className="head">
                     <h4>Send us a message</h4>
                   </div>
                   <div className="row formRow">
                     <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xx-12 txtGrp">
                       <h6>Name</h6>
-                      <input type="text" name id className="txtBox" />
+                      <input type="text" name="" className="txtBox" />
                     </div>
                     <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xx-12 txtGrp">
                       <h6>Email ID</h6>
-                      <input type="text" name id className="txtBox" />
+                      <input type="text" name="" className="txtBox" />
                     </div>
                     <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xx-12 txtGrp">
                       <h6>Phone</h6>
-                      <input type="text" name id className="txtBox" />
+                      <input type="text" name="" className="txtBox" />
                     </div>
                     <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xx-12 txtGrp">
                       <h6>Message</h6>
-                      <textarea name id className="txtBox" defaultValue={""} />
+                      <textarea name="" className="txtBox" defaultValue={""} />
                     </div>
                   </div>
                   <div className="bTn text-center">
@@ -194,7 +194,7 @@ export default class LocationsScreen extends Component {
         {/* contact */}
       </main>
     ) : (
-      <main common locations>
+      <main>
         <LocationScreenSkeleton />
       </main>
     );

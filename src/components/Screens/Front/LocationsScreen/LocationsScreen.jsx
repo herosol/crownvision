@@ -33,15 +33,15 @@ export default class LocationsScreen extends Component {
                 Explore <em>Our Locations</em>
               </h1>
               <p>And find the best place to show Your Vision</p>
-              <form method="post" action className="txtGrp flexGrp">
+              <form method="post" className="txtGrp flexGrp">
                 <img
                   src={
                     require("../../../../assets/images/icon-search.svg").default
                   }
                   alt=""
                 />
-                <label htmlFor>Search for locations</label>
-                <input type="text" name id className="txtBox" />
+                <label htmlFor="">Search for locations</label>
+                <input type="text" name="" className="txtBox" />
               </form>
             </div>
           </div>
@@ -214,7 +214,7 @@ export default class LocationsScreen extends Component {
         </section>
       </main>
     ) : (
-      <main common locations>
+      <main>
         <LocationScreenSkeleton />
       </main>
     );

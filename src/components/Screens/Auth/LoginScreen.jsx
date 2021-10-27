@@ -14,11 +14,11 @@ export default class LoginScreen extends Component {
     };
   }
 
-  componentDidMount = () => {
-    console.log(this.state);
-  };
+  // componentDidMount = () => {
+  //   console.log(this.state);
+  // };
 
-  handleChange = (event) => {
+  handleInputChange = (event) => {
     const { name, value, type } = event.target;
     this.setState(({ formData }) => ({
       formData: {
@@ -28,7 +28,7 @@ export default class LoginScreen extends Component {
     }));
   };
 
-  handleSubmit = (event) => {
+  handleFormSubmit = (event) => {
     event.preventDefault();
     console.log(this.state.formData);
     //EMIT LOGIN ACTION
@@ -40,25 +40,25 @@ export default class LoginScreen extends Component {
         <section id="login">
           <div className="contain">
             <div className="logBlk">
-              <form onSubmit={this.handleSubmit}>
+              <form onSubmit={this.handleFormSubmit}>
                 <h3>Login</h3>
                 <p>Enter your details below</p>
                 <div className="txtGrp">
-                  <label htmlFor>User Name</label>
+                  <label>User Name</label>
                   <input
                     type="text"
                     name="username"
                     className="txtBox"
-                    onChange={this.handleChange}
+                    onChange={this.handleInputChange}
                     value={this.state.username}
                   />
                 </div>
                 <div className="txtGrp pasDv">
-                  <label htmlFor>Password</label>
+                  <label>Password</label>
                   <input
                     type="password"
                     name="password"
-                    onChange={this.handleChange}
+                    onChange={this.handleInputChange}
                     value={this.state.password}
                     className="txtBox"
                   />
@@ -70,7 +70,7 @@ export default class LoginScreen extends Component {
                       type="checkbox"
                       name="remember"
                       id="remember"
-                      onChange={this.handleChange}
+                      onChange={this.handleInputChange}
                       defaultChecked
                     />
                     <label htmlFor="remember">Keep me logged in</label>

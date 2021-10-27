@@ -343,7 +343,7 @@ export default class LocationsScreen extends Component {
         {/* blog */}
       </main>
     ) : (
-      <main common locations>
+      <main>
         <LocationScreenSkeleton />
       </main>
     );

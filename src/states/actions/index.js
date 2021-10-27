@@ -17,3 +17,6 @@ export const LOGOUT = "LOGOUT";
 export const BOOK_SLOT = "BOOK_SLOT";
 export const BOOK_SLOT_SUCCESS = "BOOK_SLOT_SUCCESS";
 export const BOOK_SLOT_FAILED = "BOOK_SLOT_FAILED";
+
+//GENERAL
+export const OFFLINE_ERROR = "OFFLINE_ERROR";

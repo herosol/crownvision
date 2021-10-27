@@ -226,7 +226,7 @@ export default class BlogScreen extends Component {
         {/* blog */}
       </main>
     ) : (
-      <main common locations>
+      <main>
         <LocationScreenSkeleton />
       </main>
     );

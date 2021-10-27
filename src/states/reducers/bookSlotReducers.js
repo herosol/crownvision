@@ -1,4 +1,4 @@
-import { BOOK_SLOT, BOOK_SLOT_SUCCESS, BOOK_SLOT_FAILED } from ".";
+import { BOOK_SLOT, BOOK_SLOT_SUCCESS, BOOK_SLOT_FAILED } from "../actions";
 
 const initialState = {
   loading: false,
@@ -6,6 +6,7 @@ const initialState = {
   token: null,
 };
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default (state = initialState, action) => {
   switch (action.type) {
     case BOOK_SLOT:

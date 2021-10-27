@@ -294,6 +294,79 @@ p.pre {
 
 /*
 |----------------------------------------------------------------------
+|       SPINNER
+|----------------------------------------------------------------------
+*/
+i.spinner.hidden {
+  display: none;
+}
+
+.webBtn .spinner {
+  width: auto;
+  height: auto;
+  background: inherit;
+  border-radius: inherit;
+  overflow: hidden;
+}
+.webBtn .spinner ~ i {
+  visibility: hidden;
+}
+.webBtn .spinner,
+.webBtn .spinner:before,
+.webBtn .spinner:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+.webBtn .spinner:before,
+.webBtn .spinner:after {
+  content: "";
+  width: 18px;
+  height: 18px;
+  border: 3px solid;
+  animation: spinner 0.5s linear infinite;
+  border-radius: 75%;
+}
+.webBtn .spinner:before {
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+}
+.webBtn .spinner:after {
+  border-top-color: transparent;
+  border-left-color: transparent;
+  opacity: 0.5;
+}
+.webBtn.smBtn .spinner:before,
+.webBtn.smBtn .spinner:after {
+  width: 14px;
+  height: 14px;
+}
+.webBtn.lgBtn .spinner:before,
+.webBtn.lgBtn .spinner:after {
+  width: 20px;
+  height: 20px;
+}
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+.validation-error {
+  color: red;
+}
+
+/*
+|----------------------------------------------------------------------
 |       Body Main Button
 |----------------------------------------------------------------------
 */
