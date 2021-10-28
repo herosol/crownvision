@@ -1,10 +1,27 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { fetchHomeContent } from "../../../../states/actions/homeScreenActions";
 import { Link } from "react-router-dom";
 import HappyClientsSlider from "./HappyClientsSlider";
+import LocationScreenSkeleton from "../../../Skeletons/LocationsScreenSkeleton";
 
-export default class HomeScreen extends Component {
+class HomeScreen extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    this.props.fetchHomeContent();
+  }
+
   render() {
-    return (
+    const { skeleton, content } = this.props;
+    console.log(content);
+    return skeleton ? (
+      <main>
+        <LocationScreenSkeleton />
+      </main>
+    ) : (
       <main className="index">
         <section
           id="banner"
@@ -363,8 +380,15 @@ export default class HomeScreen extends Component {
             </div>
           </div>
         </section>
-        {/* need */}
       </main>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  skeleton: state.homeScreen.skeleton,
+  error: state.homeScreen.error,
+  content: state.homeScreen.content,
+});
+
+export default connect(mapStateToProps, { fetchHomeContent })(HomeScreen);

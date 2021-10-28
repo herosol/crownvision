@@ -26,8 +26,8 @@ class RegisterScreen extends Component {
 
   componentDidMount = () => {
     // EXAMPLE TEST
-    toast.success(AUTH_MESSAGES.REGISER_SUCCESS, TOAST_SETTINGS);
-    toast.error(AUTH_MESSAGES.REGISER_FAILED, TOAST_SETTINGS);
+    // toast.success(AUTH_MESSAGES.REGISTER_SUCCESS, TOAST_SETTINGS);
+    // toast.error(AUTH_MESSAGES.REGISTER_FAILED, TOAST_SETTINGS);
   };
 
   handleChange = (event) => {
@@ -53,14 +53,15 @@ class RegisterScreen extends Component {
 
   render() {
     const { formData } = this.state;
-    const { error, processing, offline } = this.props;
+    let { error, processing, offline } = this.props;
     {
-      error && toast.error(AUTH_MESSAGES.REGISER_FAILED, TOAST_SETTINGS);
+      error && toast.error(AUTH_MESSAGES.REGISTER_FAILED, TOAST_SETTINGS);
     }
 
     {
       offline && toast.error(OFFLINE_ERROR, TOAST_SETTINGS);
     }
+
     return (
       <main className="common logon">
         <ToastContainer />

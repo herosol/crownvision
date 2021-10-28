@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import LocationScreenSkeleton from "../../../../skeletons/LocationsScreenSkeleton";
+import LocationScreenSkeleton from "../../../Skeletons/LocationsScreenSkeleton";
 import LazyImage from "../../../Common/LazyLoadImage";
 import ClientsReviewsSlider from "./ClientsReviewsSlider";
 

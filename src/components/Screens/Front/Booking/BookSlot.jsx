@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import LocationScreenSkeleton from "../../../../skeletons/LocationsScreenSkeleton";
+import LocationScreenSkeleton from "../../../Skeletons/LocationsScreenSkeleton";
 import Button from "../../../Common/Button";
 
 export default class BookSlot extends Component {

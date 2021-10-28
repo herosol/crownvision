@@ -1,21 +1,27 @@
 import React, { Component } from "react";
-import LocationScreenSkeleton from "../../../../skeletons/LocationsScreenSkeleton";
+import { connect } from "react-redux";
+import { fetchLocationsContent } from "../../../../states/actions/locationsScreenActions";
+import LocationScreenSkeleton from "../../../Skeletons/LocationsScreenSkeleton";
 import OtherCitiesSlider from "./OtherCitiesSlider";
 
-export default class LocationsScreen extends Component {
+class LocationsScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = { loading: true };
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      this.setState({ loading: false });
-    }, 1000);
+    this.props.fetchLocationsContent();
   }
 
   render() {
-    return this.state.loading === false ? (
+    const { skeleton, error } = this.props;
+    const { content } = this.props.content;
+    console.log(content);
+    return skeleton ? (
+      <main>
+        <LocationScreenSkeleton />
+      </main>
+    ) : (
       <main className="common">
         <section
           id="sBanner"
@@ -213,10 +219,16 @@ export default class LocationsScreen extends Component {
           </div>
         </section>
       </main>
-    ) : (
-      <main>
-        <LocationScreenSkeleton />
-      </main>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  skeleton: state.locationsScreen.skeleton,
+  error: state.locationsScreen.error,
+  content: state.locationsScreen.content,
+});
+
+export default connect(mapStateToProps, { fetchLocationsContent })(
+  LocationsScreen
+);

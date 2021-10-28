@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import LocationScreenSkeleton from "../../../../skeletons/LocationsScreenSkeleton";
+import LocationScreenSkeleton from "../../../Skeletons/LocationsScreenSkeleton";
 
 export default class BlogScreen extends Component {
   constructor(props) {

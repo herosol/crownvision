@@ -13,22 +13,20 @@ import {
 } from "../actions";
 
 const initialState = {
-  loading: false,
   processing: false,
-  error: null,
+  error: false,
   token: null,
   offline: false,
 };
 
-// eslint-disable-next-line import/no-anonymous-default-export
 export default function (state = initialState, action) {
   switch (action.type) {
     case LOGIN:
     case REGISTER:
+    case FORGOT_PASSWORD:
       return {
         ...state,
         processing: true,
-        loading: false,
         error: false,
         offline: false,
       };
@@ -36,14 +34,12 @@ export default function (state = initialState, action) {
     case REGISTER_SUCCESS:
       return {
         ...state,
-        loading: false,
         token: action.payload,
       };
     case LOGIN_FAILED:
     case REGISTER_FAILED:
       return {
         ...state,
-        loading: false,
         error: true,
         processing: false,
       };
