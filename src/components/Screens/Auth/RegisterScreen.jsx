@@ -7,6 +7,13 @@ import "react-toastify/dist/ReactToastify.css";
 import { AUTH_MESSAGES, OFFLINE_ERROR } from "../../../utils/Messages";
 import { TOAST_SETTINGS } from "../../../utils/SiteSettings";
 
+const mapStateToProps = (state) => ({
+  loading: state.auth.loading,
+  error: state.auth.error,
+  processing: state.auth.processing,
+  offline: state.auth.offline,
+});
+
 class RegisterScreen extends Component {
   constructor(props) {
     super(props);
@@ -26,8 +33,8 @@ class RegisterScreen extends Component {
 
   componentDidMount = () => {
     // EXAMPLE TEST
-    // toast.success(AUTH_MESSAGES.REGISTER_SUCCESS, TOAST_SETTINGS);
-    // toast.error(AUTH_MESSAGES.REGISTER_FAILED, TOAST_SETTINGS);
+    toast.success(AUTH_MESSAGES.REGISTER_SUCCESS, TOAST_SETTINGS);
+    toast.error(AUTH_MESSAGES.REGISTER_FAILED, TOAST_SETTINGS);
   };
 
   handleChange = (event) => {
@@ -201,12 +208,5 @@ class RegisterScreen extends Component {
     );
   }
 }
-
-const mapStateToProps = (state) => ({
-  loading: state.auth.loading,
-  error: state.auth.error,
-  processing: state.auth.processing,
-  offline: state.auth.offline,
-});
 
 export default connect(mapStateToProps, { register })(RegisterScreen);

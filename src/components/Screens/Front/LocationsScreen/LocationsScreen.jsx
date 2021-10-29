@@ -1,8 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchLocationsContent } from "../../../../states/actions/locationsScreenActions";
+import { setPageTitle } from "../../../../utils/Helpers";
 import LocationScreenSkeleton from "../../../Skeletons/LocationsScreenSkeleton";
 import OtherCitiesSlider from "./OtherCitiesSlider";
+
+const mapStateToProps = (state) => ({
+  skeleton: state.locationsScreen.skeleton,
+  error: state.locationsScreen.error,
+  content: state.locationsScreen.content,
+});
 
 class LocationsScreen extends Component {
   constructor(props) {
@@ -15,8 +22,13 @@ class LocationsScreen extends Component {
 
   render() {
     const { skeleton, error } = this.props;
-    const { content } = this.props.content;
-    console.log(content);
+    const { content, locations, page_title, meta_description } =
+      this.props.content;
+
+    if (!skeleton) {
+      setPageTitle({ page_title, meta_description });
+    }
+
     return skeleton ? (
       <main>
         <LocationScreenSkeleton />
@@ -36,9 +48,9 @@ class LocationsScreen extends Component {
           <div className="contain">
             <div className="content">
               <h1>
-                Explore <em>Our Locations</em>
+                {content.header_title} <em>{content.header_bold_title}</em>
               </h1>
-              <p>And find the best place to show Your Vision</p>
+              <p>{content.header_detail}</p>
               <form method="post" className="txtGrp flexGrp">
                 <img
                   src={
@@ -55,7 +67,7 @@ class LocationsScreen extends Component {
         {/* sBanner */}
         <section id="locations">
           <div className="contain">
-            <h4 className="bold">Top Cities we Advertise</h4>
+            <h4 className="bold">{content.section1_title}</h4>
             <div className="flexRow flex text-center">
               <div className="col">
                 <div className="cityBlk">
@@ -214,20 +226,14 @@ class LocationsScreen extends Component {
         </section>
         <section id="similar">
           <div className="contain">
-            <h4 className="bold">And many other cities</h4>
-            <OtherCitiesSlider />
+            <h4 className="bold">{content.section2_title}</h4>
+            <OtherCitiesSlider images={locations} />
           </div>
         </section>
       </main>
     );
   }
 }
-
-const mapStateToProps = (state) => ({
-  skeleton: state.locationsScreen.skeleton,
-  error: state.locationsScreen.error,
-  content: state.locationsScreen.content,
-});
 
 export default connect(mapStateToProps, { fetchLocationsContent })(
   LocationsScreen

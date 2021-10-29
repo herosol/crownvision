@@ -2,8 +2,38 @@ import React, { Component } from "react";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
+import LazyImage from "../../../Common/LazyLoadImage";
+
 export class OtherCitiesSlider extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
+    let sliderImages = [];
+    sliderImages = Object.values(this.props.images).map((image, index) => {
+      return (
+        <div
+          key={index}
+          className="owl-item cloned"
+          style={{ width: "252.5px", marginRight: "20px" }}
+        >
+          <div className="cityBlk">
+            <div className="image">
+              <LazyImage
+                src={`${process.env.REACT_APP_IMAGES_LOCATIONS}thumbs/${image.image}`}
+                alt={image.name}
+              />
+              <div className="txt">
+                <h6>
+                  {image.name}
+                  <small>Average Price start from ${image.price}</small>
+                </h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    });
     return (
       <div>
         <div class="container-fluid">
@@ -39,232 +69,7 @@ export class OtherCitiesSlider extends Component {
                   width: "3815px",
                 }}
               >
-                <div
-                  className="owl-item cloned"
-                  style={{ width: "252.5px", marginRight: "20px" }}
-                >
-                  <div className="cityBlk">
-                    <div
-                      className="image"
-                      style={{
-                        backgroundImage:
-                          "url(" +
-                          require("../../../../assets/images/locations//maryland.jpg")
-                            .default +
-                          ")",
-                      }}
-                    />
-                    <div className="txt">
-                      <h6>
-                        Annapolis, Maryland{" "}
-                        <small>Average Price start from $490</small>
-                      </h6>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="owl-item cloned"
-                  style={{ width: "252.5px", marginRight: "20px" }}
-                >
-                  <div className="cityBlk">
-                    <div
-                      className="image"
-                      style={{
-                        backgroundImage:
-                          "url(" +
-                          require("../../../../assets/images/locations/louisiana.jpg")
-                            .default +
-                          ")",
-                      }}
-                    />
-                    <div className="txt">
-                      <h6>
-                        New Orleans, Louisiana{" "}
-                        <small>Average Price start from $490</small>
-                      </h6>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="owl-item cloned"
-                  style={{ width: "252.5px", marginRight: "20px" }}
-                >
-                  <div className="cityBlk">
-                    <div
-                      className="image"
-                      style={{
-                        backgroundImage:
-                          "url(" +
-                          require("../../../../assets/images/locations/san_diego.jpg")
-                            .default +
-                          ")",
-                      }}
-                    />
-                    <div className="txt">
-                      <h6>
-                        San Diego <small>Average Price start from $490</small>
-                      </h6>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="owl-item cloned"
-                  style={{ width: "252.5px", marginRight: "20px" }}
-                >
-                  <div className="cityBlk">
-                    <div
-                      className="image"
-                      style={{
-                        backgroundImage:
-                          "url(" +
-                          require("../../../../assets/images/locations/dallas.jpg")
-                            .default +
-                          ")",
-                      }}
-                    />
-                    <div className="txt">
-                      <h6>
-                        Dallas <small>Average Price start from $490</small>
-                      </h6>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="owl-item active"
-                  style={{ width: "252.5px", marginRight: "20px" }}
-                >
-                  <div className="cityBlk">
-                    <div
-                      className="image"
-                      style={{
-                        backgroundImage:
-                          "url(" +
-                          require("../../../../assets/images/locations/south_carolina.jpg")
-                            .default +
-                          ")",
-                      }}
-                    />
-                    <div className="txt">
-                      <h6>
-                        Greenville, South Carolina{" "}
-                        <small>Average Price start from $490</small>
-                      </h6>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="owl-item active"
-                  style={{ width: "252.5px", marginRight: "20px" }}
-                >
-                  <div className="cityBlk">
-                    <div
-                      className="image"
-                      style={{
-                        backgroundImage:
-                          "url(" +
-                          require("../../../../assets/images/locations/alaska.jpg")
-                            .default +
-                          ")",
-                      }}
-                    />
-                    <div className="txt">
-                      <h6>
-                        Anchorage, Alaska{" "}
-                        <small>Average Price start from $490</small>
-                      </h6>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="owl-item active"
-                  style={{ width: "252.5px", marginRight: "20px" }}
-                >
-                  <div className="cityBlk">
-                    <div
-                      className="image"
-                      style={{
-                        backgroundImage:
-                          "url(" +
-                          require("../../../../assets/images/locations/maryland.jpg")
-                            .default +
-                          ")",
-                      }}
-                    />
-                    <div className="txt">
-                      <h6>
-                        Annapolis, Maryland{" "}
-                        <small>Average Price start from $490</small>
-                      </h6>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="owl-item active"
-                  style={{ width: "252.5px", marginRight: "20px" }}
-                >
-                  <div className="cityBlk">
-                    <div
-                      className="image"
-                      style={{
-                        backgroundImage:
-                          "url(" +
-                          require("../../../../assets/images/locations/louisiana.jpg")
-                            .default +
-                          ")",
-                      }}
-                    />
-                    <div className="txt">
-                      <h6>
-                        New Orleans, Louisiana{" "}
-                        <small>Average Price start from $490</small>
-                      </h6>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="owl-item"
-                  style={{ width: "252.5px", marginRight: "20px" }}
-                >
-                  <div className="cityBlk">
-                    <div
-                      className="image"
-                      style={{
-                        backgroundImage:
-                          "url(" +
-                          require("../../../../assets/images/locations/san_diego.jpg")
-                            .default +
-                          ")",
-                      }}
-                    />
-                    <div className="txt">
-                      <h6>
-                        San Diego <small>Average Price start from $490</small>
-                      </h6>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="owl-item"
-                  style={{ width: "252.5px", marginRight: "20px" }}
-                >
-                  <div className="cityBlk">
-                    <div
-                      className="image"
-                      style={{
-                        backgroundImage:
-                          "url(" +
-                          require("../../../../assets/images/locations/dallas.jpg")
-                            .default +
-                          ")",
-                      }}
-                    />
-                    <div className="txt">
-                      <h6>
-                        Dallas <small>Average Price start from $490</small>
-                      </h6>
-                    </div>
-                  </div>
-                </div>
+                {sliderImages}
               </div>
             </div>
           </OwlCarousel>

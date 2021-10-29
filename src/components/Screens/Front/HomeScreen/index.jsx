@@ -5,6 +5,12 @@ import { Link } from "react-router-dom";
 import HappyClientsSlider from "./HappyClientsSlider";
 import LocationScreenSkeleton from "../../../Skeletons/LocationsScreenSkeleton";
 
+const mapStateToProps = (state) => ({
+  skeleton: state.homeScreen.skeleton,
+  error: state.homeScreen.error,
+  content: state.homeScreen.content,
+});
+
 class HomeScreen extends Component {
   constructor(props) {
     super(props);
@@ -384,11 +390,5 @@ class HomeScreen extends Component {
     );
   }
 }
-
-const mapStateToProps = (state) => ({
-  skeleton: state.homeScreen.skeleton,
-  error: state.homeScreen.error,
-  content: state.homeScreen.content,
-});
 
 export default connect(mapStateToProps, { fetchHomeContent })(HomeScreen);
