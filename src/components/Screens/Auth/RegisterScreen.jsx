@@ -1,43 +1,59 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { register } from "../../../states/actions/authActions";
+import { register, clearUnexpected } from "../../../states/actions/authActions";
+
 import SimpleReactValidator from "simple-react-validator";
+
+import { setPageTitle } from "../../../utils/Helpers";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 import { AUTH_MESSAGES, OFFLINE_ERROR } from "../../../utils/Messages";
 import { TOAST_SETTINGS } from "../../../utils/SiteSettings";
+import { EMPTY } from "../../../utils/Constants";
+import { Link } from "react-router-dom";
 
-const mapStateToProps = (state) => ({
-  loading: state.auth.loading,
-  error: state.auth.error,
-  processing: state.auth.processing,
-  offline: state.auth.offline,
-});
+const mapStateToProps = (state) => {
+  console.log("MAPSTATETOPORPS");
+  return {
+    processing: state.auth.processing,
+    error: state.auth.error,
+    offline: state.auth.offline,
+    formError: state.auth.formError,
+    formSuccess: state.auth.formSuccess,
+  };
+};
 
 class RegisterScreen extends Component {
   constructor(props) {
+    console.log("CONSTRUCTOR");
     super(props);
-    let empty = "";
     this.state = {
       formData: {
-        firstName: empty,
-        lastName: empty,
-        email: empty,
-        password: empty,
-        cpassword: empty,
-        confirm: empty,
+        firstName: EMPTY,
+        lastName: EMPTY,
+        email: EMPTY,
+        password: EMPTY,
+        cpassword: EMPTY,
+        confirm: false,
       },
     };
-    this.validator = new SimpleReactValidator();
+    this.props.clearUnexpected();
   }
 
+  componentWillMount = () => {
+    this.validator = new SimpleReactValidator();
+    console.log("WILLMOUNT");
+  };
+
   componentDidMount = () => {
+    console.log("DIDMOUNT");
     // EXAMPLE TEST
-    toast.success(AUTH_MESSAGES.REGISTER_SUCCESS, TOAST_SETTINGS);
-    toast.error(AUTH_MESSAGES.REGISTER_FAILED, TOAST_SETTINGS);
   };
 
   handleChange = (event) => {
+    this.props.clearUnexpected();
     const { name, value, type, checked } = event.target;
     this.setState(({ formData }) => ({
       formData: {
@@ -49,7 +65,6 @@ class RegisterScreen extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log(this.state.formData);
     if (this.validator.allValid()) {
       this.props.register(this.state.formData);
     } else {
@@ -59,14 +74,22 @@ class RegisterScreen extends Component {
   };
 
   render() {
+    console.log("RENDER");
+    setPageTitle({ page_title: "Register", meta_description: "TEST" });
+
     const { formData } = this.state;
-    let { error, processing, offline } = this.props;
+    let { processing, error, offline, forError, formSuccess } = this.props;
     {
       error && toast.error(AUTH_MESSAGES.REGISTER_FAILED, TOAST_SETTINGS);
     }
 
     {
       offline && toast.error(OFFLINE_ERROR, TOAST_SETTINGS);
+    }
+
+    {
+      formSuccess &&
+        toast.success(AUTH_MESSAGES.REGISTER_SUCCESS, TOAST_SETTINGS);
     }
 
     return (
@@ -176,7 +199,10 @@ class RegisterScreen extends Component {
                     />
                     <label htmlFor="confirm">
                       By signing up, I agree to Crown
-                      <a>Terms &amp; Conditions </a> and <a>Privacy Policy.</a>
+                      <Link to="/terms-and-conditions">
+                        Terms &amp; Conditions{" "}
+                      </Link>{" "}
+                      and <Link to="/privacy-policy">Privacy Policy.</Link>
                     </label>
                   </div>
                   {this.validator.message(
@@ -199,7 +225,7 @@ class RegisterScreen extends Component {
               </form>
               <div className="haveAccount text-center">
                 <span>Already have an account?</span>
-                <a href="login.php">Login</a>
+                <Link to="/auth/enter">Login</Link>
               </div>
             </div>
           </div>
@@ -209,4 +235,6 @@ class RegisterScreen extends Component {
   }
 }
 
-export default connect(mapStateToProps, { register })(RegisterScreen);
+export default connect(mapStateToProps, { register, clearUnexpected })(
+  RegisterScreen
+);

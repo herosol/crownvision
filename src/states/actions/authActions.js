@@ -12,7 +12,9 @@ import {
   FORGOT_PASSWORD_FAILED,
   LOGOUT,
   OFFLINE_ERROR,
+  CLEAR_UNEXPECTED,
 } from ".";
+import { doObjToFormData } from "../../utils/Helpers";
 
 export const login = (loginData) => (dispatch) => {
   dispatch({
@@ -46,11 +48,10 @@ export const register = (registerData) => (dispatch) => {
     axios
       .post(
         process.env.REACT_APP_API_URL + process.env.REACT_APP_REGISTER_URL,
-        {
-          registerData,
-        }
+        doObjToFormData(registerData)
       )
       .then((response) => {
+        console.log(response);
         dispatch({
           type: REGISTER_SUCCESS,
           payload: response,
@@ -68,6 +69,13 @@ export const register = (registerData) => (dispatch) => {
       payload: null,
     });
   }
+};
+
+export const clearUnexpected = () => (dispatch) => {
+  dispatch({
+    type: CLEAR_UNEXPECTED,
+    payload: null,
+  });
 };
 
 export const logout = () => (dispatch) => {

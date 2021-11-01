@@ -10,17 +10,29 @@ import {
   FORGOT_PASSWORD_FAILED,
   LOGOUT,
   OFFLINE_ERROR,
+  CLEAR_UNEXPECTED,
 } from "../actions";
 
 const initialState = {
-  processing: false,
-  error: false,
   token: null,
+  processing: false,
+  formError: false,
+  formSuccess: false,
+  error: false,
   offline: false,
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
+    case CLEAR_UNEXPECTED:
+      return {
+        ...state,
+        error: false,
+        offline: false,
+        processing: false,
+        formError: false,
+        formSuccess: false,
+      };
     case LOGIN:
     case REGISTER:
     case FORGOT_PASSWORD:
@@ -35,12 +47,15 @@ export default function (state = initialState, action) {
       return {
         ...state,
         token: action.payload,
+        formSuccess: true,
+        processing: false,
       };
     case LOGIN_FAILED:
     case REGISTER_FAILED:
       return {
         ...state,
         error: true,
+        formError: false,
         processing: false,
       };
     case LOGOUT:
