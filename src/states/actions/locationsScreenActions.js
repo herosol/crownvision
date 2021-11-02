@@ -1,4 +1,5 @@
 import axios from "axios";
+import { loadProgressBar } from "axios-progress-bar";
 
 import {
   FETCH_LOCATIONS_CONTENT,
@@ -7,6 +8,7 @@ import {
 } from ".";
 
 export const fetchLocationsContent = () => (dispatch) => {
+  loadProgressBar();
   dispatch({
     type: FETCH_LOCATIONS_CONTENT,
     payload: null,

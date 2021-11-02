@@ -1,4 +1,5 @@
 import axios from "axios";
+import { loadProgressBar } from "axios-progress-bar";
 
 import {
   LOGIN,
@@ -40,6 +41,7 @@ export const login = (loginData) => (dispatch) => {
 };
 
 export const register = (registerData) => (dispatch) => {
+  loadProgressBar();
   dispatch({
     type: REGISTER,
     payload: null,

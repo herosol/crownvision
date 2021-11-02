@@ -1,7 +1,9 @@
 import axios from "axios";
+import { loadProgressBar } from "axios-progress-bar";
 import { BOOK_SLOT, BOOK_SLOT_SUCCESS, BOOK_SLOT_FAILED } from ".";
 
 export const bookSlot = (bookingData) => (dispatch) => {
+  loadProgressBar();
   dispatch({
     type: BOOK_SLOT,
     payload: null,

@@ -297,6 +297,20 @@ p.pre {
 |       SPINNER
 |----------------------------------------------------------------------
 */
+#nprogress .bar {
+  background: #ffce31 !important;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px #ffce31, 0 0 5px #ffce31 !important;
+}
+
+#nprogress .spinner-icon {
+  border-top-color: #ffce31 !important;
+  border-left-color: #ffce31 !important;
+  display: none;
+}
+
 i.spinner.hidden {
   display: none;
 }
