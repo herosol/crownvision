@@ -14,20 +14,16 @@ import { TOAST_SETTINGS } from "../../../utils/SiteSettings";
 import { EMPTY } from "../../../utils/Constants";
 import { Link } from "react-router-dom";
 
-const mapStateToProps = (state) => {
-  console.log("MAPSTATETOPORPS");
-  return {
-    processing: state.auth.processing,
-    error: state.auth.error,
-    offline: state.auth.offline,
-    formError: state.auth.formError,
-    formSuccess: state.auth.formSuccess,
-  };
-};
+const mapStateToProps = (state) => ({
+  processing: state.auth.processing,
+  error: state.auth.error,
+  offline: state.auth.offline,
+  formValidationsError: state.auth.formValidationsError,
+  formSuccess: state.auth.formSuccess,
+});
 
 class RegisterScreen extends Component {
   constructor(props) {
-    console.log("CONSTRUCTOR");
     super(props);
     this.state = {
       formData: {
@@ -36,23 +32,14 @@ class RegisterScreen extends Component {
         email: EMPTY,
         password: EMPTY,
         cpassword: EMPTY,
-        confirm: false,
+        confirm: EMPTY,
       },
     };
+    this.validator = new SimpleReactValidator();
     this.props.clearUnexpected();
   }
 
-  componentWillMount = () => {
-    this.validator = new SimpleReactValidator();
-    console.log("WILLMOUNT");
-  };
-
-  componentDidMount = () => {
-    console.log("DIDMOUNT");
-    // EXAMPLE TEST
-  };
-
-  handleChange = (event) => {
+  handleInputChange = (event) => {
     this.props.clearUnexpected();
     const { name, value, type, checked } = event.target;
     this.setState(({ formData }) => ({
@@ -63,7 +50,7 @@ class RegisterScreen extends Component {
     }));
   };
 
-  handleSubmit = (event) => {
+  handleFormSubmit = (event) => {
     event.preventDefault();
     if (this.validator.allValid()) {
       this.props.register(this.state.formData);
@@ -73,23 +60,39 @@ class RegisterScreen extends Component {
     }
   };
 
+  handleFormReset = () => {
+    this.setState(({ formData }) => ({
+      formData: {
+        firstName: EMPTY,
+        lastName: EMPTY,
+        email: EMPTY,
+        password: EMPTY,
+        cpassword: EMPTY,
+        confirm: EMPTY,
+      },
+    }));
+  };
+
   render() {
-    console.log("RENDER");
     setPageTitle({ page_title: "Register", meta_description: "TEST" });
 
     const { formData } = this.state;
-    let { processing, error, offline, forError, formSuccess } = this.props;
+    let { processing, error, offline, formValidationsError, formSuccess } =
+      this.props;
     {
       error && toast.error(AUTH_MESSAGES.REGISTER_FAILED, TOAST_SETTINGS);
+    }
+
+    {
+      formValidationsError && toast.error(formValidationsError, TOAST_SETTINGS);
     }
 
     {
       offline && toast.error(OFFLINE_ERROR, TOAST_SETTINGS);
     }
 
-    {
-      formSuccess &&
-        toast.success(AUTH_MESSAGES.REGISTER_SUCCESS, TOAST_SETTINGS);
+    if (formSuccess) {
+      toast.success(AUTH_MESSAGES.REGISTER_SUCCESS, TOAST_SETTINGS);
     }
 
     return (
@@ -98,7 +101,7 @@ class RegisterScreen extends Component {
         <section id="register">
           <div className="contain">
             <div className="logBlk">
-              <form onSubmit={this.handleSubmit}>
+              <form onSubmit={this.handleFormSubmit}>
                 <h3>Register</h3>
                 <p>Work Better, Live Better.</p>
                 <div className="txtGrp">
@@ -107,7 +110,7 @@ class RegisterScreen extends Component {
                     type="text"
                     name="firstName"
                     className="txtBox"
-                    onChange={this.handleChange}
+                    onChange={this.handleInputChange}
                     value={formData.firstName}
                   />
                   {this.validator.message(
@@ -123,7 +126,7 @@ class RegisterScreen extends Component {
                     type="text"
                     name="lastName"
                     className="txtBox"
-                    onChange={this.handleChange}
+                    onChange={this.handleInputChange}
                     value={formData.lastName}
                   />
                   {this.validator.message(
@@ -139,7 +142,7 @@ class RegisterScreen extends Component {
                     type="text"
                     name="email"
                     className="txtBox"
-                    onChange={this.handleChange}
+                    onChange={this.handleInputChange}
                     value={formData.email}
                   />
                   {this.validator.message(
@@ -155,7 +158,7 @@ class RegisterScreen extends Component {
                     type="password"
                     name="password"
                     className="txtBox"
-                    onChange={this.handleChange}
+                    onChange={this.handleInputChange}
                     value={formData.password}
                   />
                   <i className="icon-eye" id="eye" />
@@ -172,7 +175,7 @@ class RegisterScreen extends Component {
                     type="password"
                     name="cpassword"
                     className="txtBox"
-                    onChange={this.handleChange}
+                    onChange={this.handleInputChange}
                     value={formData.cpassword}
                   />
                   <i className="icon-eye" id="eye" />
@@ -194,7 +197,7 @@ class RegisterScreen extends Component {
                       type="checkbox"
                       name="confirm"
                       id="confirm"
-                      onChange={this.handleChange}
+                      onChange={this.handleInputChange}
                       value={formData.confirm}
                     />
                     <label htmlFor="confirm">

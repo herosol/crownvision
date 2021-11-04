@@ -8,9 +8,7 @@ import {
   REGISTER,
   REGISTER_SUCCESS,
   REGISTER_FAILED,
-  FORGOT_PASSWORD,
-  FORGOT_PASSWORD_SUCCESS,
-  FORGOT_PASSWORD_FAILED,
+  FORM_VALIDATIONS_ERROR,
   LOGOUT,
   OFFLINE_ERROR,
   CLEAR_UNEXPECTED,
@@ -52,12 +50,18 @@ export const register = (registerData) => (dispatch) => {
         process.env.REACT_APP_API_URL + process.env.REACT_APP_REGISTER_URL,
         doObjToFormData(registerData)
       )
-      .then((response) => {
-        console.log(response);
-        dispatch({
-          type: REGISTER_SUCCESS,
-          payload: response,
-        });
+      .then(({ data }) => {
+        if (data.formValidationsError) {
+          dispatch({
+            type: FORM_VALIDATIONS_ERROR,
+            payload: data.msg,
+          });
+        } else {
+          dispatch({
+            type: REGISTER_SUCCESS,
+            payload: data,
+          });
+        }
       })
       .catch((error) => {
         dispatch({

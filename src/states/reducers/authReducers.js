@@ -5,9 +5,7 @@ import {
   REGISTER,
   REGISTER_SUCCESS,
   REGISTER_FAILED,
-  FORGOT_PASSWORD,
-  FORGOT_PASSWORD_SUCCESS,
-  FORGOT_PASSWORD_FAILED,
+  FORM_VALIDATIONS_ERROR,
   LOGOUT,
   OFFLINE_ERROR,
   CLEAR_UNEXPECTED,
@@ -16,8 +14,9 @@ import {
 const initialState = {
   token: null,
   processing: false,
-  formError: false,
+  formValidationsError: false,
   formSuccess: false,
+  emailExist: false,
   error: false,
   offline: false,
 };
@@ -30,17 +29,18 @@ export default function (state = initialState, action) {
         error: false,
         offline: false,
         processing: false,
-        formError: false,
+        formValidationsError: false,
         formSuccess: false,
       };
     case LOGIN:
     case REGISTER:
-    case FORGOT_PASSWORD:
       return {
         ...state,
         processing: true,
         error: false,
         offline: false,
+        formValidationsError: false,
+        formSuccess: false,
       };
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
@@ -50,12 +50,18 @@ export default function (state = initialState, action) {
         formSuccess: true,
         processing: false,
       };
+    case FORM_VALIDATIONS_ERROR:
+      return {
+        ...state,
+        formValidationsError: action.payload,
+        processing: false,
+      };
     case LOGIN_FAILED:
     case REGISTER_FAILED:
       return {
         ...state,
         error: true,
-        formError: false,
+        formValidationsError: false,
         processing: false,
       };
     case LOGOUT:
