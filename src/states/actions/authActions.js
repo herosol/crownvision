@@ -59,7 +59,7 @@ export const register = (registerData) => (dispatch) => {
         } else {
           dispatch({
             type: REGISTER_SUCCESS,
-            payload: data,
+            payload: data.token,
           });
         }
       })
