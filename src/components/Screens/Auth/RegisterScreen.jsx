@@ -1,26 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { register, clearUnexpected } from "../../../states/actions/authActions";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 import SimpleReactValidator from "simple-react-validator";
-
-import { setPageTitle } from "../../../utils/Helpers";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import * as helpers from "../../../utils/Helpers";
 import { AUTH_MESSAGES, OFFLINE_ERROR } from "../../../utils/Messages";
 import { TOAST_SETTINGS } from "../../../utils/SiteSettings";
 import { EMPTY } from "../../../utils/Constants";
-import { Link } from "react-router-dom";
-
-const mapStateToProps = (state) => ({
-  processing: state.auth.processing,
-  error: state.auth.error,
-  offline: state.auth.offline,
-  formValidationsError: state.auth.formValidationsError,
-  formSuccess: state.auth.formSuccess,
-});
 
 class RegisterScreen extends Component {
   constructor(props) {
@@ -37,6 +29,10 @@ class RegisterScreen extends Component {
     };
     this.validator = new SimpleReactValidator();
     this.props.clearUnexpected();
+  }
+
+  componentDidMount() {
+    // window.location = "/client/dashboard";
   }
 
   handleInputChange = (event) => {
@@ -60,7 +56,7 @@ class RegisterScreen extends Component {
     }
   };
 
-  handleFormReset = () => {
+  handleFormReset() {
     this.setState(({ formData }) => ({
       formData: {
         firstName: EMPTY,
@@ -71,10 +67,10 @@ class RegisterScreen extends Component {
         confirm: EMPTY,
       },
     }));
-  };
+  }
 
   render() {
-    setPageTitle({ page_title: "Register", meta_description: "TEST" });
+    helpers.setPageTitle({ page_title: "Register", meta_description: "TEST" });
 
     const { formData } = this.state;
     let { processing, error, offline, formValidationsError, formSuccess } =
@@ -93,6 +89,12 @@ class RegisterScreen extends Component {
 
     if (formSuccess) {
       toast.success(AUTH_MESSAGES.REGISTER_SUCCESS, TOAST_SETTINGS);
+      // {
+      //   this.handleFormReset();
+      // }
+      setTimeout(() => {
+        window.location = "/client/dashboard";
+      }, 2000);
     }
 
     return (
@@ -237,6 +239,24 @@ class RegisterScreen extends Component {
     );
   }
 }
+
+RegisterScreen.propTypes = {
+  authToken: PropTypes.string,
+  processing: PropTypes.bool.isRequired,
+  // error: ;
+  offline: PropTypes.bool.isRequired,
+  formValidationsError: PropTypes.string,
+  formSuccess: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  authToken: state.auth.authToken,
+  processing: state.auth.processing,
+  error: state.auth.error,
+  offline: state.auth.offline,
+  formValidationsError: state.auth.formValidationsError,
+  formSuccess: state.auth.formSuccess,
+});
 
 export default connect(mapStateToProps, { register, clearUnexpected })(
   RegisterScreen

@@ -1,17 +1,29 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { login, clearUnexpected } from "../../../states/actions/authActions";
 
-export default class LoginScreen extends Component {
+import SimpleReactValidator from "simple-react-validator";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import { AUTH_MESSAGES, OFFLINE_ERROR } from "../../../utils/Messages";
+import { TOAST_SETTINGS } from "../../../utils/SiteSettings";
+import { EMPTY } from "../../../utils/Constants";
+
+class LoginScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: true,
       formData: {
-        username: null,
-        password: null,
+        username: EMPTY,
+        password: EMPTY,
         remember: true,
       },
     };
+    this.validator = new SimpleReactValidator();
+    this.props.clearUnexpected();
   }
 
   // componentDidMount = () => {
@@ -30,13 +42,43 @@ export default class LoginScreen extends Component {
 
   handleFormSubmit = (event) => {
     event.preventDefault();
-    console.log(this.state.formData);
-    //EMIT LOGIN ACTION
+    if (this.validator.allValid()) {
+      this.props.login(this.state.formData);
+    } else {
+      this.validator.showMessages();
+      this.forceUpdate();
+    }
   };
 
   render() {
+    const { formData } = this.state;
+    let { processing, error, offline, formValidationsError, formSuccess } =
+      this.props;
+    {
+      error && toast.error(AUTH_MESSAGES.REGISTER_FAILED, TOAST_SETTINGS);
+    }
+
+    {
+      formValidationsError && toast.error(formValidationsError, TOAST_SETTINGS);
+    }
+
+    {
+      offline && toast.error(OFFLINE_ERROR, TOAST_SETTINGS);
+    }
+
+    if (formSuccess) {
+      toast.success(AUTH_MESSAGES.REGISTER_SUCCESS, TOAST_SETTINGS);
+      // {
+      //   this.handleFormReset();
+      // }
+      setTimeout(() => {
+        window.location = "/client/dashboard";
+      }, 2000);
+    }
+
     return (
       <main className="common logon">
+        <ToastContainer />
         <section id="login">
           <div className="contain">
             <div className="logBlk">
@@ -44,14 +86,25 @@ export default class LoginScreen extends Component {
                 <h3>Login</h3>
                 <p>Enter your details below</p>
                 <div className="txtGrp">
-                  <label>User Name</label>
+                  <label>Email</label>
                   <input
                     type="text"
-                    name="username"
+                    name="email"
                     className="txtBox"
                     onChange={this.handleInputChange}
-                    value={this.state.username}
+                    value={this.state.email}
                   />
+                  {this.validator.message(
+                    "email",
+                    formData.email,
+                    "required|email",
+                    {
+                      className: "validation-error",
+                      messages: {
+                        required: "Please enter your email.",
+                      },
+                    }
+                  )}
                 </div>
                 <div className="txtGrp pasDv">
                   <label>Password</label>
@@ -62,6 +115,17 @@ export default class LoginScreen extends Component {
                     value={this.state.password}
                     className="txtBox"
                   />
+                  {this.validator.message(
+                    "password",
+                    formData.password,
+                    "required",
+                    {
+                      className: "validation-error",
+                      messages: {
+                        required: "Please enter your password.",
+                      },
+                    }
+                  )}
                   <i className="icon-eye" id="eye" />
                 </div>
                 <div className="txtGrp flex">
@@ -80,8 +144,13 @@ export default class LoginScreen extends Component {
                   </a>
                 </div>
                 <div className="bTn text-center">
-                  <button type="submit" className="webBtn yellowBtn longBtn">
+                  <button
+                    type="submit"
+                    className="webBtn yellowBtn longBtn"
+                    disabled={processing}
+                  >
                     Login
+                    <i className={`spinner ${!processing && "hidden"}`}></i>
                   </button>
                 </div>
               </form>
@@ -96,3 +165,16 @@ export default class LoginScreen extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  authToken: state.auth.authToken,
+  processing: state.auth.processing,
+  error: state.auth.error,
+  offline: state.auth.offline,
+  formValidationsError: state.auth.formValidationsError,
+  formSuccess: state.auth.formSuccess,
+});
+
+export default connect(mapStateToProps, { login, clearUnexpected })(
+  LoginScreen
+);

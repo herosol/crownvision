@@ -1,6 +1,7 @@
 export function setPageTitle(data = {}) {
-  data.page_title = data.page_title || "Default title";
-  data.meta_description = data.meta_description || "Default description";
+  data.page_title = data.page_title || "Crown Vision Media";
+  data.meta_description =
+    data.meta_description || "Crown Vision Media Description";
 
   document.title = data.page_title;
   document

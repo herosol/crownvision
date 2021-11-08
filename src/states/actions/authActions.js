@@ -16,26 +16,42 @@ import {
 import { doObjToFormData } from "../../utils/Helpers";
 
 export const login = (loginData) => (dispatch) => {
+  loadProgressBar();
   dispatch({
     type: LOGIN,
     payload: null,
   });
-  axios
-    .post(process.env.REACT_APP_API_URL + process.env.REACT_APP_LOGIN_URL, {
-      loginData,
-    })
-    .then((response) => {
-      dispatch({
-        type: LOGIN_SUCCESS,
-        payload: response,
+  if (navigator.onLine) {
+    axios
+      .post(
+        process.env.REACT_APP_API_URL + process.env.REACT_APP_LOGIN_URL,
+        doObjToFormData(loginData)
+      )
+      .then(({ data }) => {
+        if (data.formValidationsError) {
+          dispatch({
+            type: FORM_VALIDATIONS_ERROR,
+            payload: data.msg,
+          });
+        } else {
+          dispatch({
+            type: LOGIN_SUCCESS,
+            payload: data,
+          });
+        }
+      })
+      .catch((error) => {
+        dispatch({
+          type: LOGIN_FAILED,
+          payload: error,
+        });
       });
-    })
-    .catch((error) => {
-      dispatch({
-        type: LOGIN_FAILED,
-        payload: error,
-      });
+  } else {
+    dispatch({
+      type: OFFLINE_ERROR,
+      payload: null,
     });
+  }
 };
 
 export const register = (registerData) => (dispatch) => {
@@ -59,7 +75,7 @@ export const register = (registerData) => (dispatch) => {
         } else {
           dispatch({
             type: REGISTER_SUCCESS,
-            payload: data.token,
+            payload: data,
           });
         }
       })

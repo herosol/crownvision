@@ -10,11 +10,12 @@ import {
   OFFLINE_ERROR,
   CLEAR_UNEXPECTED,
 } from "../actions";
+import * as AuthTokens from "../../utils/AuthTokens";
 
 const initialState = {
-  token: null,
+  authToken: AuthTokens.getAuthToken("authToken"),
   processing: false,
-  formValidationsError: false,
+  formValidationsError: null,
   formSuccess: false,
   emailExist: false,
   error: false,
@@ -29,7 +30,7 @@ export default function (state = initialState, action) {
         error: false,
         offline: false,
         processing: false,
-        formValidationsError: false,
+        formValidationsError: null,
         formSuccess: false,
       };
     case LOGIN:
@@ -39,14 +40,16 @@ export default function (state = initialState, action) {
         processing: true,
         error: false,
         offline: false,
-        formValidationsError: false,
+        formValidationsError: null,
         formSuccess: false,
       };
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
+      const authToken = action.payload.authToken;
+      AuthTokens.saveAuthToken(authToken);
       return {
         ...state,
-        token: action.payload,
+        authToken: authToken,
         formSuccess: true,
         processing: false,
       };
@@ -61,7 +64,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         error: true,
-        formValidationsError: false,
+        formValidationsError: null,
         processing: false,
       };
     case LOGOUT:
