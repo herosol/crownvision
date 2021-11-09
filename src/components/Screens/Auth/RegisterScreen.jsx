@@ -32,7 +32,7 @@ class RegisterScreen extends Component {
   }
 
   componentDidMount() {
-    // window.location = "/client/dashboard";
+    console.log(this.props.match);
   }
 
   handleInputChange = (event) => {

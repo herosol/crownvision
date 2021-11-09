@@ -1,13 +1,18 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import LocationScreenSkeleton from "../../../Skeletons/LocationsScreenSkeleton";
 
-export default class BlogScreen extends Component {
+import { fetchBlogs } from "../../../../states/actions/blogScreenActions";
+
+class BlogScreen extends Component {
   constructor(props) {
     super(props);
     this.state = { loading: true };
   }
 
   componentDidMount() {
+    console.log(this.props);
     setTimeout(() => {
       this.setState({ loading: false });
     }, 1000);
@@ -232,3 +237,17 @@ export default class BlogScreen extends Component {
     );
   }
 }
+
+BlogScreen.propTypes = {
+  skeleton: PropTypes.bool.isRequired,
+  error: PropTypes.bool.isRequired,
+  content: PropTypes.object,
+};
+
+const mapStateToProps = ({ blog }) => ({
+  skeleton: blog.skeleton,
+  error: blog.error,
+  content: blog.content,
+});
+
+export default connect(mapStateToProps, { fetchBlogs })(BlogScreen);
