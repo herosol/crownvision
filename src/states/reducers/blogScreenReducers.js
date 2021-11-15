@@ -3,14 +3,14 @@ import {
   FETCH_BLOGS_SUCCESS,
   FETCH_BLOGS_FAILED,
   OFFLINE_ERROR,
-  CLEAR_UNEXPECTED,
+  CLEAR_UNEXPECTED
 } from "../actions";
 import * as AuthTokens from "../../utils/AuthTokens";
 
 const initialState = {
   skeleton: true,
   error: false,
-  content: {},
+  content: {}
 };
 
 export default function (state = initialState, action) {
@@ -18,19 +18,19 @@ export default function (state = initialState, action) {
     case FETCH_BLOGS:
       return {
         ...state,
-        skeleton: true,
+        skeleton: true
       };
     case FETCH_BLOGS_SUCCESS:
       return {
         ...state,
         skeleton: false,
-        content: action.payload,
+        content: action.payload
       };
     case FETCH_BLOGS_FAILED:
       return {
         ...state,
         skeleton: false,
-        error: true,
+        error: true
       };
     default:
       return state;

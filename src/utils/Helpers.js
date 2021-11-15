@@ -1,3 +1,5 @@
+import parse from "html-react-parser";
+
 export function setPageTitle(data = {}) {
   data.page_title = data.page_title || "Crown Vision Media";
   data.meta_description =
@@ -30,4 +32,8 @@ export function doObjToFormData(obj) {
 export function doFirstUpperRestLower(word) {
   const lower = word.toLowerCase();
   return word.charAt(0).toUpperCase() + lower.slice(1);
+}
+
+export function doParseHTML(string) {
+  return parse(string);
 }

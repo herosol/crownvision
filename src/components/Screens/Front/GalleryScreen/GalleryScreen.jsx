@@ -24,7 +24,7 @@ export default class LocationsScreen extends Component {
             backgroundImage:
               "url(" +
               require("../../../../assets/images/gallery.jpg").default +
-              ")",
+              ")"
           }}
         >
           <div className="contain">
