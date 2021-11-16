@@ -25,7 +25,7 @@ function App() {
           <Route exact path="/locations" component={LocationsScreen} />
           <Route exact path="/gallery" component={GalleryScreen} />
           <Route exact path="/blogs" component={BlogScreen} />
-          <Route exact path="/blog-detail" component={BlogDetailScreen} />
+          <Route path="/blogs/detail/:id" component={BlogDetailScreen} />
           <Route exact path="/contact-us" component={ContactUsScreen} />
           <Route exact path="/design/ready" component={BookSlot} />
           <Route exact path="/auth/enter" component={LoginScreen} />

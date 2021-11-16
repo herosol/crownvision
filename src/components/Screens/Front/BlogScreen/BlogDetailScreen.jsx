@@ -1,20 +1,31 @@
 import React, { Component } from "react";
 import LocationScreenSkeleton from "../../../Skeletons/LocationsScreenSkeleton";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { fetchBlogDetail } from "../../../../states/actions/blogScreenActions";
+import Moment from "moment";
+import Text from "../../../Common/Text";
 
-export default class BlogDetailScreen extends Component {
+class BlogDetailScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = { loading: true };
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      this.setState({ loading: false });
-    }, 1000);
+    const blogId = window.location.pathname.split("/").pop();
+    console.log("Hello");
+    this.props.fetchBlogDetail(blogId);
   }
 
   render() {
-    return this.state.loading === false ? (
+    const { skeleton } = this.props;
+    const { row } = this.props.content;
+    console.log(this.props.content);
+    return skeleton ? (
+      <main common locations>
+        <LocationScreenSkeleton />
+      </main>
+    ) : (
       <main className="common" blog>
         <section
           id="sBanner"
@@ -23,7 +34,7 @@ export default class BlogDetailScreen extends Component {
               "url(" +
               require("../../../../assets/images/photo-1530685932526-48ec92998eaa.jpg")
                 .default +
-              ")",
+              ")"
           }}
         >
           <div className="contain">
@@ -42,59 +53,17 @@ export default class BlogDetailScreen extends Component {
                 <div className="newsBlk mainBlk">
                   <div className="image">
                     <img
-                      src={
-                        require("../../../../assets/images/blog/1.png").default
-                      }
+                      src={`${process.env.REACT_APP_IMAGES_URL}${process.env.REACT_APP_BLOGS_IMAGES}/${row.image}`}
                     />
                   </div>
                   <div className="txt">
-                    <small className="date">September 18, 2018</small>
+                    <small className="date">
+                      {Moment(row.created_date).format("MMMM D, YYYY")}
+                    </small>
                     <h3>
-                      The best newsletter templates and resources for download
-                      right now
+                      <Text string={row.title} />
                     </h3>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Ipsa at aliquid explicabo maxime voluptas rem libero
-                      facere qui enim harum facilis totam, eos amet adipisci
-                      reiciendis accusamus! Provident, adipisci autem.
-                    </p>
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Quas est a, quam totam quisquam deleniti vero sunt
-                      accusamus, facere deserunt, voluptatibus quibusdam
-                      possimus commodi? Esse rerum rem cumque ad a?
-                    </p>
-                    <h6>
-                      Voluptas eligendi voluptatem magni, exercitationem rerum
-                      eum, nostrum nihil consectetur numquam quae neque
-                      quibusdam facere quasi maxime est ut nulla consequatur
-                      officiis?
-                    </h6>
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Quas, voluptas sed quos molestiae aliquam optio natus
-                      odio! A, cum enim corrupti neque reprehenderit, placeat,
-                      perspiciatis facere consequuntur incidunt tempora eos.
-                    </p>
-                    <p>
-                      Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                      Pariatur, expedita earum asperiores sed praesentium fugit
-                      modi beatae omnis in, reprehenderit, ea harum possimus!
-                      Debitis, neque. Veniam cupiditate nisi vero ad.
-                    </p>
-                    <h5>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Praesentium, iste vero sed harum maiores corrupti omnis!
-                      Quis magnam aliquid quo, nam sequi at laboriosam!
-                      Provident sequi excepturi omnis molestiae sint?
-                    </h5>
-                    <p>
-                      Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                      Pariatur, expedita earum asperiores sed praesentium fugit
-                      modi beatae omnis in, reprehenderit, ea harum possimus!
-                      Debitis, neque. Veniam cupiditate nisi vero ad.
-                    </p>
+                    <Text parse={true} string={row.description} />
                   </div>
                 </div>
               </div>
@@ -103,10 +72,20 @@ export default class BlogDetailScreen extends Component {
         </section>
         {/* blog */}
       </main>
-    ) : (
-      <main common locations>
-        <LocationScreenSkeleton />
-      </main>
     );
   }
 }
+
+BlogDetailScreen.propTypes = {
+  skeleton: PropTypes.bool.isRequired,
+  error: PropTypes.bool.isRequired,
+  content: PropTypes.object
+};
+
+const mapStateToProps = ({ blog }) => ({
+  skeleton: blog.skeleton,
+  error: blog.error,
+  content: blog.content
+});
+
+export default connect(mapStateToProps, { fetchBlogDetail })(BlogDetailScreen);

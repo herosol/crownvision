@@ -35,6 +35,7 @@ export const fetchBlogs = () => (dispatch) => {
 };
 
 export const fetchBlogDetail = (blogId) => (dispatch) => {
+  console.log(blogId);
   dispatch({
     type: FETCH_BLOG_DETAIL,
     payload: null

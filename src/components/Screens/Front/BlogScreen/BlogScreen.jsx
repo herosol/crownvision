@@ -18,7 +18,7 @@ class BlogScreen extends Component {
   }
 
   handleOpenBlogDetail(id) {
-    window.location.href = "/blog/deatil/" + id;
+    window.location.href = `/blogs/detail/${id}`;
   }
 
   render() {
@@ -41,7 +41,7 @@ class BlogScreen extends Component {
                 href="#"
                 className="image"
                 style={{ display: "block" }}
-                onClick={() => this.handleOpenBlogDetail("asd")}
+                onClick={() => this.handleOpenBlogDetail(blog.id)}
               >
                 <img
                   src={`${process.env.REACT_APP_IMAGES_URL}${process.env.REACT_APP_BLOGS_IMAGES}large/${blog.image}`}

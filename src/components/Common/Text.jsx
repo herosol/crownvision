@@ -9,15 +9,14 @@ export default class Text extends Component {
   render() {
     let { string, length, parse } = this.props;
     string = string.trim();
-    let showText = string;
     length = length ?? false;
     parse = parse ?? false;
 
     if (length)
-      if (string.length > length) showText = string.slice(0, length) + "...";
+      if (string.length > length) string = string.slice(0, length) + "...";
 
-    if (parse) showText = helpers.doParseHTML(showText);
+    if (parse) string = helpers.doParseHTML(string);
 
-    return <div>{showText}</div>;
+    return <div>{string}</div>;
   }
 }

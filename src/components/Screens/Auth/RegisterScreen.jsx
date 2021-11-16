@@ -8,10 +8,10 @@ import SimpleReactValidator from "simple-react-validator";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { TOAST_SETTINGS } from "../../../utils/SiteSettings";
 
 import * as helpers from "../../../utils/Helpers";
 import { AUTH_MESSAGES, OFFLINE_ERROR } from "../../../utils/Messages";
-import { TOAST_SETTINGS } from "../../../utils/SiteSettings";
 import { EMPTY } from "../../../utils/Constants";
 
 class RegisterScreen extends Component {
@@ -24,8 +24,8 @@ class RegisterScreen extends Component {
         email: EMPTY,
         password: EMPTY,
         cpassword: EMPTY,
-        confirm: EMPTY,
-      },
+        confirm: EMPTY
+      }
     };
     this.validator = new SimpleReactValidator();
     this.props.clearUnexpected();
@@ -41,8 +41,8 @@ class RegisterScreen extends Component {
     this.setState(({ formData }) => ({
       formData: {
         ...formData,
-        [name]: type == "checkbox" ? checked : value,
-      },
+        [name]: type == "checkbox" ? checked : value
+      }
     }));
   };
 
@@ -64,8 +64,8 @@ class RegisterScreen extends Component {
         email: EMPTY,
         password: EMPTY,
         cpassword: EMPTY,
-        confirm: EMPTY,
-      },
+        confirm: EMPTY
+      }
     }));
   }
 
@@ -188,8 +188,8 @@ class RegisterScreen extends Component {
                     {
                       className: "validation-error",
                       messages: {
-                        in: "Confirm password sould be same as password.",
-                      },
+                        in: "Confirm password sould be same as password."
+                      }
                     }
                   )}
                 </div>
@@ -246,7 +246,7 @@ RegisterScreen.propTypes = {
   // error: ;
   offline: PropTypes.bool.isRequired,
   formValidationsError: PropTypes.string,
-  formSuccess: PropTypes.bool.isRequired,
+  formSuccess: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -255,7 +255,7 @@ const mapStateToProps = (state) => ({
   error: state.auth.error,
   offline: state.auth.offline,
   formValidationsError: state.auth.formValidationsError,
-  formSuccess: state.auth.formSuccess,
+  formSuccess: state.auth.formSuccess
 });
 
 export default connect(mapStateToProps, { register, clearUnexpected })(

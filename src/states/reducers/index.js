@@ -4,6 +4,7 @@ import blogScreenReducers from "./blogScreenReducers";
 import bookSlotReducers from "./bookSlotReducers";
 import homeScreenReducers from "./homeScreenReducers";
 import locationsScreenReducers from "./locationsScreenReducers";
+import contactUsScreenReducers from "./contactUsScreenReducers";
 
 export default combineReducers({
   auth: authReducers,
@@ -11,4 +12,5 @@ export default combineReducers({
   homeScreen: homeScreenReducers,
   locationsScreen: locationsScreenReducers,
   blog: blogScreenReducers,
+  contactUs: contactUsScreenReducers
 });
