@@ -5,6 +5,7 @@ import bookSlotReducers from "./bookSlotReducers";
 import homeScreenReducers from "./homeScreenReducers";
 import locationsScreenReducers from "./locationsScreenReducers";
 import contactUsScreenReducers from "./contactUsScreenReducers";
+import galleryScreenReducers from "./galleryScreenReducers";
 
 export default combineReducers({
   auth: authReducers,

@@ -10,7 +10,8 @@ import {
   FETCH_CONTACTUS_CONTENT_FAILED,
   SAVE_CONTACT_MESSAGE,
   SAVE_CONTACT_MESSAGE_SUCCESS,
-  SAVE_CONTACT_MESSAGE_FAILED
+  SAVE_CONTACT_MESSAGE_FAILED,
+  RESET_FORM_STATES
 } from ".";
 import { doObjToFormData } from "../../utils/Helpers";
 
@@ -68,4 +69,11 @@ export const saveContactMessage = (messageData) => (dispatch) => {
         payload: error
       });
     });
+};
+
+export const resetFormStates = () => (dispatch) => {
+  dispatch({
+    type: RESET_FORM_STATES,
+    payload: null
+  });
 };

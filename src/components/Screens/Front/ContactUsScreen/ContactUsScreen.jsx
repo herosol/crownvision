@@ -1,17 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import LocationScreenSkeleton from "../../../Skeletons/LocationsScreenSkeleton";
 import PropTypes from "prop-types";
+
 import {
   fetchPageContent,
-  saveContactMessage
+  saveContactMessage,
+  resetFormStates
 } from "../../../../states/actions/contactUsScreenActions";
+
+import LocationScreenSkeleton from "../../../Skeletons/LocationsScreenSkeleton";
+
 import * as helpers from "../../../../utils/Helpers";
 import Text from "../../../Common/Text";
 import { EMPTY } from "../../../../utils/Constants";
+
+import SimpleReactValidator from "simple-react-validator";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import SimpleReactValidator from "simple-react-validator";
 import { ToastContainer } from "react-toastify";
 
 class LocationsScreen extends Component {
@@ -42,7 +47,7 @@ class LocationsScreen extends Component {
     }));
   };
 
-  handlePhoneInputChange = (value, country, event) => {
+  handlePhoneInputChange = (value) => {
     this.setState(({ formData }) => ({
       formData: {
         ...formData,
@@ -61,8 +66,8 @@ class LocationsScreen extends Component {
     }
   };
 
-  handleFormReset() {
-    this.setState(({ formData }) => ({
+  handleFormReset = () => {
+    this.setState((prevState) => ({
       formData: {
         name: EMPTY,
         email: EMPTY,
@@ -70,16 +75,21 @@ class LocationsScreen extends Component {
         msg: EMPTY
       }
     }));
-  }
+  };
 
   render() {
-    console.log(this.props);
     const { formData } = this.state;
     const { skeleton, processing, formSuccess } = this.props;
-    const { page_title, meta_description, row } = this.props.content;
+    const { page_title, meta_description, row, settings } = this.props.content;
+    console.log(this.props.content);
 
     if (!skeleton) {
       helpers.setPageTitle({ page_title, meta_description });
+    }
+
+    if (formSuccess) {
+      this.handleFormReset();
+      this.props.resetFormStates();
     }
 
     return skeleton ? (
@@ -271,7 +281,6 @@ class LocationsScreen extends Component {
                       <h6>Phone</h6>
                       <PhoneInput
                         name="phone"
-                        country={"gb"}
                         value={formData.phone}
                         onChange={this.handlePhoneInputChange}
                       />
@@ -337,5 +346,6 @@ const mapStateToProps = ({ contactUs }) => ({
 
 export default connect(mapStateToProps, {
   fetchPageContent,
-  saveContactMessage
+  saveContactMessage,
+  resetFormStates
 })(LocationsScreen);
