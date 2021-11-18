@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import "react-lazy-load-image-component/src/effects/opacity.css";
-import truckImage from "../../assets/images/blog/3.png";
+import LazyLoad from "react-lazyload";
 
 export default class LazyImage extends Component {
   constructor(props) {
@@ -10,7 +8,9 @@ export default class LazyImage extends Component {
   render() {
     return (
       <>
-        <LazyLoadImage src={truckImage} alt={this.props.alt} effect="opacity" />
+        <LazyLoad>
+          <img src={this.props.src} alt={this.props.alt} />
+        </LazyLoad>
       </>
     );
   }

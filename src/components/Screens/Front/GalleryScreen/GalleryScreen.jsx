@@ -2,21 +2,69 @@ import React, { Component } from "react";
 import LocationScreenSkeleton from "../../../Skeletons/LocationsScreenSkeleton";
 import LazyImage from "../../../Common/LazyLoadImage";
 import ClientsReviewsSlider from "./ClientsReviewsSlider";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { fetchPageContent } from "../../../../states/actions/galleryScreenActions";
+import * as helpers from "../../../../utils/Helpers";
+import Moment from "moment";
+import Text from "../../../Common/Text";
 
-export default class LocationsScreen extends Component {
+class GalleryScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = { loading: true };
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      this.setState({ loading: false });
-    }, 1000);
+    this.props.fetchPageContent();
   }
 
   render() {
-    return this.state.loading === false ? (
+    const { skeleton } = this.props;
+    const { page_title, meta_description, gallery } = this.props.content;
+
+    if (!skeleton) {
+      helpers.setPageTitle({ page_title, meta_description });
+    }
+
+    console.log(gallery);
+    let Gallery = [];
+    if (gallery) {
+      Gallery = Object.values(gallery).map((gObj, index) => {
+        return (
+          <div className="col" key={index}>
+            <a
+              href="blog-detail.php"
+              className="image"
+              style={{ display: "block" }}
+            >
+              <LazyImage
+                src={`${process.env.REACT_APP_IMAGES_URL}${process.env.REACT_APP_GALLERY_IMAGES}${gObj.image}`}
+              />
+            </a>
+            <div className="cntnt">
+              <p className="smInfo">
+                <span>New York City, USA</span>
+                <span>{Moment(gObj.created_date).format("MMMM D, YYYY")}</span>
+              </p>
+              <h3>
+                <a href="blog-detail.php">
+                  <Text string={gObj.title} />
+                </a>
+              </h3>
+              <p>
+                <Text string={gObj.description} length={80} />
+              </p>
+            </div>
+          </div>
+        );
+      });
+    }
+
+    return skeleton ? (
+      <main>
+        <LocationScreenSkeleton />
+      </main>
+    ) : (
       <main className="common">
         <section
           id="sBanner"
@@ -89,251 +137,7 @@ export default class LocationsScreen extends Component {
         <section className="gallery">
           <div className="contain">
             <h2 className="heading">Gallery</h2>
-            <div className="flexRow flex">
-              <div className="col">
-                <a
-                  href="blog-detail.php"
-                  className="image"
-                  style={{ display: "block" }}
-                >
-                  <LazyImage />
-                  {/* <img
-                    src={
-                      require("../../../../assets/images/blog/6.png").default
-                    }
-                  /> */}
-                </a>
-                <div className="cntnt">
-                  <p className="smInfo">
-                    <span>New York City, USA</span>
-                    <span>02 Jun 2019</span>
-                  </p>
-                  <h3>
-                    <a href="blog-detail.php">Campaign on MI Homes</a>
-                  </h3>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                    eiusmod tempor incididunt.
-                  </p>
-                </div>
-              </div>
-              <div className="col">
-                <a
-                  href="blog-detail.php"
-                  className="image"
-                  style={{ display: "block" }}
-                >
-                  <LazyImage />
-                  {/* <img
-                    src={
-                      require("../../../../assets/images/blog/7.png").default
-                    }
-                  /> */}
-                </a>
-                <div className="cntnt">
-                  <p className="smInfo">
-                    <span>New York City, USA</span>
-                    <span>02 Jun 2019</span>
-                  </p>
-                  <h3>
-                    <a href="blog-detail.php">French Frey Heaven</a>
-                  </h3>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                    eiusmod tempor incididunt.
-                  </p>
-                </div>
-              </div>
-              <div className="col">
-                <a
-                  href="blog-detail.php"
-                  className="image"
-                  style={{ display: "block" }}
-                >
-                  <LazyImage />
-                  {/* <img
-                    src={
-                      require("../../../../assets/images/blog/8.png").default
-                    }
-                  /> */}
-                </a>
-                <div className="cntnt">
-                  <p className="smInfo">
-                    <span>Tesco</span>
-                    <span>02 Jun 2019</span>
-                  </p>
-                  <h3>
-                    <a href="blog-detail.php">French Frey Heaven</a>
-                  </h3>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                    eiusmod tempor incididunt.
-                  </p>
-                </div>
-              </div>
-              <div className="col">
-                <a
-                  href="blog-detail.php"
-                  className="image"
-                  style={{ display: "block" }}
-                >
-                  <LazyImage />
-                  {/* <img
-                    src={
-                      require("../../../../assets/images/blog/8.png").default
-                    }
-                  /> */}
-                </a>
-                <div className="cntnt">
-                  <p className="smInfo">
-                    <span>Tesco</span>
-                    <span>02 Jun 2019</span>
-                  </p>
-                  <h3>
-                    <a href="blog-detail.php">French Frey Heaven</a>
-                  </h3>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                    eiusmod tempor incididunt.
-                  </p>
-                </div>
-              </div>
-              <div className="col">
-                <a
-                  href="blog-detail.php"
-                  className="image"
-                  style={{ display: "block" }}
-                >
-                  <LazyImage />
-                  {/* <img
-                    src={
-                      require("../../../../assets/images/blog/8.png").default
-                    }
-                  /> */}
-                </a>
-                <div className="cntnt">
-                  <p className="smInfo">
-                    <span>Tesco</span>
-                    <span>02 Jun 2019</span>
-                  </p>
-                  <h3>
-                    <a href="blog-detail.php">French Frey Heaven</a>
-                  </h3>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                    eiusmod tempor incididunt.
-                  </p>
-                </div>
-              </div>
-              <div className="col">
-                <a
-                  href="blog-detail.php"
-                  className="image"
-                  style={{ display: "block" }}
-                >
-                  <LazyImage />
-                  {/* <img
-                    src={
-                      require("../../../../assets/images/blog/8.png").default
-                    }
-                  /> */}
-                </a>
-                <div className="cntnt">
-                  <p className="smInfo">
-                    <span>Tesco</span>
-                    <span>02 Jun 2019</span>
-                  </p>
-                  <h3>
-                    <a href="blog-detail.php">French Frey Heaven</a>
-                  </h3>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                    eiusmod tempor incididunt.
-                  </p>
-                </div>
-              </div>
-              <div className="col">
-                <a
-                  href="blog-detail.php"
-                  className="image"
-                  style={{ display: "block" }}
-                >
-                  <LazyImage />
-                  {/* <img
-                    src={
-                      require("../../../../assets/images/blog/8.png").default
-                    }
-                  /> */}
-                </a>
-                <div className="cntnt">
-                  <p className="smInfo">
-                    <span>Tesco</span>
-                    <span>02 Jun 2019</span>
-                  </p>
-                  <h3>
-                    <a href="blog-detail.php">French Frey Heaven</a>
-                  </h3>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                    eiusmod tempor incididunt.
-                  </p>
-                </div>
-              </div>
-              <div className="col">
-                <a
-                  href="blog-detail.php"
-                  className="image"
-                  style={{ display: "block" }}
-                >
-                  <LazyImage />
-                  {/* <img
-                    src={
-                      require("../../../../assets/images/blog/8.png").default
-                    }
-                  /> */}
-                </a>
-                <div className="cntnt">
-                  <p className="smInfo">
-                    <span>Tesco</span>
-                    <span>02 Jun 2019</span>
-                  </p>
-                  <h3>
-                    <a href="blog-detail.php">French Frey Heaven</a>
-                  </h3>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                    eiusmod tempor incididunt.
-                  </p>
-                </div>
-              </div>
-              <div className="col">
-                <a
-                  href="blog-detail.php"
-                  className="image"
-                  style={{ display: "block" }}
-                >
-                  <LazyImage />
-                  {/* <img
-                    src={
-                      require("../../../../assets/images/blog/8.png").default
-                    }
-                  /> */}
-                </a>
-                <div className="cntnt">
-                  <p className="smInfo">
-                    <span>Tesco</span>
-                    <span>02 Jun 2019</span>
-                  </p>
-                  <h3>
-                    <a href="blog-detail.php">French Frey Heaven</a>
-                  </h3>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                    eiusmod tempor incididunt.
-                  </p>
-                </div>
-              </div>
-            </div>
+            <div className="flexRow flex">{Gallery}</div>
             <div className="clientsReviews">
               <h2 className="heading text-center">Happy Clients Reviews</h2>
               <ClientsReviewsSlider />
@@ -342,10 +146,20 @@ export default class LocationsScreen extends Component {
         </section>
         {/* blog */}
       </main>
-    ) : (
-      <main>
-        <LocationScreenSkeleton />
-      </main>
     );
   }
 }
+
+GalleryScreen.propTypes = {
+  skeleton: PropTypes.bool.isRequired,
+  error: PropTypes.bool.isRequired,
+  skeleton: PropTypes.object
+};
+
+const mapStateToProps = ({ gallery }) => ({
+  skeleton: gallery.skeleton,
+  error: gallery.error,
+  content: gallery.content
+});
+
+export default connect(mapStateToProps, { fetchPageContent })(GalleryScreen);

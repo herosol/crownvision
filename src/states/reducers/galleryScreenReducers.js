@@ -17,5 +17,19 @@ export default function (state = initialState, action) {
         ...state,
         skeleton: true
       };
+    case FETCH_GALLERY_CONTENT_SUCCESS:
+      return {
+        ...state,
+        skeleton: false,
+        content: action.payload
+      };
+    case FETCH_GALLERY_CONTENT_FAILED:
+      return {
+        ...state,
+        skeleton: false,
+        error: action.payload
+      };
+    default:
+      return state;
   }
 }

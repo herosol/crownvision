@@ -13,5 +13,6 @@ export default combineReducers({
   homeScreen: homeScreenReducers,
   locationsScreen: locationsScreenReducers,
   blog: blogScreenReducers,
-  contactUs: contactUsScreenReducers
+  contactUs: contactUsScreenReducers,
+  gallery: galleryScreenReducers
 });
