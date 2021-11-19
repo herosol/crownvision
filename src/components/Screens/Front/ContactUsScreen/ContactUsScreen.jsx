@@ -81,7 +81,7 @@ class LocationsScreen extends Component {
     const { formData } = this.state;
     const { skeleton, processing, formSuccess } = this.props;
     const { page_title, meta_description, row, settings } = this.props.content;
-    console.log(this.props.content);
+    console.log(row, settings);
 
     if (!skeleton) {
       helpers.setPageTitle({ page_title, meta_description });
@@ -102,17 +102,13 @@ class LocationsScreen extends Component {
         <section
           id="sBanner"
           style={{
-            backgroundImage:
-              "url(" +
-              require("../../../../assets/images/photo-1530685932526-48ec92998eaa.jpg")
-                .default +
-              ")"
+            backgroundImage: `url(${process.env.REACT_APP_IMAGES_URL}images/${row.header_back_img})`
           }}
         >
           <div className="contain">
             <div className="content">
               <h1>
-                Contact <em>us</em>
+                {row.text} <em>{row.text_colored}</em>
               </h1>
             </div>
           </div>
@@ -242,7 +238,7 @@ class LocationsScreen extends Component {
               <div className="col col2">
                 <form onSubmit={this.handleFormSubmit}>
                   <div className="head">
-                    <h4>Send us a message</h4>
+                    <h4>{row.text2}</h4>
                   </div>
                   <div className="row formRow">
                     <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xx-12 txtGrp">
@@ -313,7 +309,7 @@ class LocationsScreen extends Component {
                       className="webBtn yellowBtn longBtn"
                       disabled={processing}
                     >
-                      Send Message
+                      {row.text2}
                       <i className={`spinner ${!processing && "hidden"}`}></i>
                     </button>
                   </div>

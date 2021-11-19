@@ -8,7 +8,7 @@ export default class Text extends Component {
 
   render() {
     let { string, length, parse } = this.props;
-    string = string.trim();
+    string = string ?? "default";
     length = length ?? false;
     parse = parse ?? false;
 

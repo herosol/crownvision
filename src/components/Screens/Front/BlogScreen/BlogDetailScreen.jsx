@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { fetchBlogDetail } from "../../../../states/actions/blogScreenActions";
 import Moment from "moment";
 import Text from "../../../Common/Text";
+import * as helpers from "../../../../utils/Helpers";
 
 class BlogDetailScreen extends Component {
   constructor(props) {
@@ -13,14 +14,18 @@ class BlogDetailScreen extends Component {
 
   componentDidMount() {
     const blogId = window.location.pathname.split("/").pop();
-    console.log("Hello");
     this.props.fetchBlogDetail(blogId);
   }
 
   render() {
     const { skeleton } = this.props;
-    const { row } = this.props.content;
+    const { page_title, meta_description, row } = this.props.content;
     console.log(this.props.content);
+
+    if (!skeleton) {
+      helpers.setPageTitle({ page_title, meta_description });
+    }
+
     return skeleton ? (
       <main common locations>
         <LocationScreenSkeleton />
@@ -39,9 +44,7 @@ class BlogDetailScreen extends Component {
         >
           <div className="contain">
             <div className="content">
-              <h1>
-                Blog <em>Detail</em>
-              </h1>
+              <h1>{row.title}</h1>
             </div>
           </div>
         </section>

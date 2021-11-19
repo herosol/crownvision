@@ -7,6 +7,8 @@ import Moment from "moment";
 import Text from "../../../Common/Text";
 
 import { fetchBlogs } from "../../../../states/actions/blogScreenActions";
+import LazyImage from "../../../Common/LazyLoadImage";
+import { Link } from "react-router-dom";
 
 class BlogScreen extends Component {
   constructor(props) {
@@ -17,13 +19,9 @@ class BlogScreen extends Component {
     this.props.fetchBlogs();
   }
 
-  handleOpenBlogDetail(id) {
-    window.location.href = `/blogs/detail/${id}`;
-  }
-
   render() {
     const { skeleton } = this.props;
-    const { page_title, meta_description, blogs, recentBlogs } =
+    const { page_title, meta_description, blogs, recentBlogs, row } =
       this.props.content;
 
     if (!skeleton) {
@@ -37,21 +35,16 @@ class BlogScreen extends Component {
         .map((blog, index) => {
           return (
             <div key={index} className="col">
-              <a
-                href="#"
-                className="image"
-                style={{ display: "block" }}
-                onClick={() => this.handleOpenBlogDetail(blog.id)}
-              >
-                <img
+              <Link to={`/blogs/detail/${blog.id}`}>
+                <LazyImage
                   src={`${process.env.REACT_APP_IMAGES_URL}${process.env.REACT_APP_BLOGS_IMAGES}large/${blog.image}`}
                 />
-              </a>
+              </Link>
               <div className="cntnt">
                 <h3>
-                  <a href="blog-detail.php">
+                  <Link to={`/blogs/detail/${blog.id}`}>
                     <Text string={blog.title} length={70} />
-                  </a>
+                  </Link>
                 </h3>
                 <p className="smInfo">
                   <span>By : Alex Andrew </span>
@@ -62,9 +55,9 @@ class BlogScreen extends Component {
                 </p>
                 <Text parse={true} string={blog.description} length={300} />
                 <div className="bTn">
-                  <a href="blog-detail.php" className="webBtn colorBtn">
-                    Read More
-                  </a>
+                  <Link to={`/blogs/detail/${blog.id}`}>
+                    <button className="webBtn colorBtn">Read More</button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -78,15 +71,15 @@ class BlogScreen extends Component {
         return (
           <div className="lstBlog" key={index}>
             <div className="colImg">
-              <img
+              <LazyImage
                 src={`${process.env.REACT_APP_IMAGES_URL}${process.env.REACT_APP_BLOGS_IMAGES}large/${blog.image}`}
               />
             </div>
             <div className="cntnt">
               <h3>
-                <a href="blog-detail.php">
-                  <Text string={blog.title} length={50} />
-                </a>
+                <Link to={`/blogs/detail/${blog.id}`}>
+                  <Text string={blog.title} length={70} />
+                </Link>
               </h3>
               <p className="smInfo">
                 <span>By : Alex Andrew </span>
@@ -95,9 +88,9 @@ class BlogScreen extends Component {
               </p>
               <Text parse={true} string={blog.description} length={250} />
               <div className="bTn">
-                <a href="blog-detail.php" className="webBtn colorBtn">
-                  Read More
-                </a>
+                <Link to={`/blogs/detail/${blog.id}`}>
+                  <button className="webBtn colorBtn">Read More</button>
+                </Link>
               </div>
             </div>
           </div>
@@ -114,17 +107,13 @@ class BlogScreen extends Component {
         <section
           id="sBanner"
           style={{
-            backgroundImage:
-              "url(" +
-              require("../../../../assets/images/photo-1530685932526-48ec92998eaa.jpg")
-                .default +
-              ")"
+            backgroundImage: `url(${process.env.REACT_APP_IMAGES_URL}images/${row.header_back_img})`
           }}
         >
           <div className="contain">
             <div className="content">
               <h1>
-                Our <em>Blog</em>
+                {row.title} <em>{row.bold_title}</em>
               </h1>
             </div>
           </div>
